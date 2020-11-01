@@ -1,2 +1,2 @@
-# Cv_site
+# CV_site
 create CV site on django 
