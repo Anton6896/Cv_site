@@ -7,10 +7,12 @@ class HomeView(generic.View):
         return render(self.request, 'index.html')
 
 
+# todo user profile creation after resister
 class UpdateProfileView(generic.UpdateView):
     pass
 
 
+# todo user register form
 class MyRegisterView(generic.View):
     def get(self, *args, **kwarg):
         return render(self.request, 'register.html')
