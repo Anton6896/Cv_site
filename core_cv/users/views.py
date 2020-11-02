@@ -7,5 +7,5 @@ class HomeView(generic.View):
         return render(self.request, 'index.html')
 
 
-class test():
+class UpdateProfileView(generic.UpdateView):
     pass
