@@ -9,3 +9,11 @@ class HomeView(generic.View):
 
 class UpdateProfileView(generic.UpdateView):
     pass
+
+
+class MyRegisterView(generic.View):
+    def get(self, *args, **kwarg):
+        return render(self.request, 'register.html')
+
+    def post(self, *args, **kwarg):
+        pass
