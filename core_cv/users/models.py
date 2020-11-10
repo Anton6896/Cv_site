@@ -1,5 +1,3 @@
-
-
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -28,3 +26,9 @@ class Profile(models.Model):
                 img.save(self.image.path)
         except IOError:
             print(f'where is the file for img working ?')
+
+
+class GuestProfile(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.
