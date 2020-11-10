@@ -10,3 +10,7 @@ create CV site on django
 . ged data from profile to main page 
 . add other features to main page ( other sites, interesting things )
 . make page responsive to user id ( http://*--*/user_id )
+
+
+django-phone-field  // new testing 
+https://pypi.org/project/django-phone-field/
