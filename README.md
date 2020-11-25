@@ -1,5 +1,5 @@
 # CV_site
-create CV site on django 
+create CV site on django for training purpose not commercial use !!!!
 
 
 # TODO 
