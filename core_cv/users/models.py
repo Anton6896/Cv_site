@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-from phone_field import PhoneField
+
 
 
 # extend the user profile model
@@ -31,6 +31,4 @@ class GuestProfile(models.Model):
     # todo create form for fill guest profile
     name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(blank=False)
-    #  ? new library see if works ? - PhoneField
-    phone = PhoneField(blank=True, help_text='Contact phone number')
     message = models.TextField(blank=True, null=True)
