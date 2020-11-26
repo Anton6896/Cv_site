@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = 'q5^r+7zdz3h5bo0n2!37n*%c8l=np4^e-*4od=nu7u288hsy__'
 DEBUG = True
 
 ALLOWED_HOSTS = ['AntonR.pythonanywhere.com']
-
 
 # Application definition
 
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
 
     # my app
     'users',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +59,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'users/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core_cv.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -85,7 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -105,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -119,7 +116,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -132,6 +128,12 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+<<<<<<< HEAD
 LOGIN_URL = 'users_login'
+=======
+LOGIN_URL = 'login'
+>>>>>>> 747a770d1bf4fbd761e5112aee1a1652cbda400a
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

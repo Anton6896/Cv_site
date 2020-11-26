@@ -1,3 +1,6 @@
-base-front-end/
-env/
-.vscode/
+
+env
+.vscode
+.idea
+my_env
+env_pc

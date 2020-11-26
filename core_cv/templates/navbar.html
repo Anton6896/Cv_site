@@ -3,19 +3,22 @@
 <nav class="navbar nav-down" data-fullwidth="true" data-menu-style="transparent" data-animation="shrink">
     <!-- Styles: light, dark, transparent, transparent-to-dark | Animation: hiding, shrink -->
     <div class="container">
-
         <div class="navbar-header">
             <div class="container">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+                        aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar top-bar"></span>
                     <span class="icon-bar middle-bar"></span>
                     <span class="icon-bar bottom-bar"></span>
                 </button>
-                <a class="navbar-brand to-top" href="#"><img src="{% static 'img/assets/logo-light.png' %}"
-                        class="logo-light" alt="#">
+
+                <a class="navbar-brand to-top" href="/">
+                    {#                    todo create my logo png #}
+                    <img src="{% static 'img/assets/logo-light.png' %}"
+                         class="logo-light" alt="#">
                     <img src="{% static 'img/assets/logo-dark.png' %}" class="logo-dark" alt="#">
+
                 </a>
             </div>
         </div>
@@ -25,59 +28,6 @@
                 <ul class="nav navbar-nav menu-right">
 
                     <!-- Each section must have corresponding ID ( #hero -> id="hero" ) -->
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#works">Work</a></li>
-                    <li class="dropdown megamenu vos">
-                        <a class="dropdown-toggle">Elements<i class="ion-ios-arrow-down"></i></a>
-                        <ul class="dropdown-menu fullwidth">
-                            <li class="megamenu-content withdesc">
-                                <div class="col-md-3 mg-col">
-                                    <ul>
-                                        <li><a href="elements.html#elements-accordion">Accordion</a></li>
-                                        <li><a href="elements.html#elements-buttons">Buttons</a></li>
-                                        <li><a href="elements.html#elements-features">Icon Features</a></li>
-                                        <li><a href="elements.html#elements-bars">Progress Bars</a></li>
-                                        <li><a href="elements.html#elements-pricing">Pricing Options</a></li>
-                                        <li><a href="elements.html#elements-lists">Lists</a></li>
-                                        <li><a href="elements.html#elements-typography">Typography</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-3 mg-col">
-                                    <ul>
-                                        <li><a href="elements.html#elements-tabs">Tabs</a></li>
-                                        <li><a href="elements.html#elements-circles">Progress Circles</a></li>
-                                        <li><a href="elements.html#elements-icons">Icon Fonts</a></li>
-                                        <li><a href="elements.html#elements-maps">Maps</a></li>
-                                        <li><a href="elements.html#elements-grid">Grid Columns</a></li>
-                                        <li><a href="elements.html#elements-countdown">Countdowns</a></li>
-                                        <li><a href="elements.html#elements-testimonials">Testimonials</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-3 mg-col">
-                                    <ul>
-                                        <li><a href="elements.html#elements-subscribe">Subscription</a></li>
-                                        <li><a href="elements.html#elements-videos">Video Embeds</a></li>
-                                        <li><a href="elements.html#elements-twitter">Twitter Feed</a></li>
-                                        <li><a href="elements.html#elements-callouts">Callouts</a></li>
-                                        <li><a href="portfolio-contained.html">Portfolio</a></li>
-                                        <li><a href="portfolio-fullwidth.html">Portfolio Fullwidth</a></li>
-                                        <li><a href="project-wide-gallery.html">Project Wide Gallery</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-3 mg-col">
-                                    <ul>
-                                        <li><a href="project-slides.html">Project Slides</a></li>
-                                        <li><a href="project-gallery.html">Projects Gallery</a></li>
-                                        <li><a href="project-video.html">Projects Video</a></li>
-                                        <li><a href="project-wide-slides.html">Project Wide Slides</a></li>
-                                        <li><a href="project-wide-video.html">Project Wide Video</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle">Blog<i class="ion-ios-arrow-down"></i></a>
                         <ul class="dropdown-menu">
@@ -90,13 +40,34 @@
                             <li><a href="blog-post-fullwidth.html">Fullwidth Post</a></li>
                         </ul>
                     </li>
-                    <li><a href="#contact">Contact</a></li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle">Navigate<i class="ion-ios-arrow-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#skills">My skills</a></li>
+                            <li><a href="#great_people">Great people</a></li>
+                            <li><a href="#works">My work</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </li>
+
+                    {% if user.is_superuser %}
+                        <li><a href="http://127.0.0.1:8000/admin/" style="color: red">Admin</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li><a href="#">My Profile</a></li>
+                        <li><a href="#">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:register' %}">Register</a></li>
+                        <li><a href="{% url 'users:login' %}">Log in</a></li>
+                    {% endif %}
 
                     <li class="nav-separator"></li>
                     <li class="nav-icon"><a href="http://facebook.com/" target="_blank"><i
-                                class="ion-social-facebook"></i></a></li>
+                            class="ion-social-facebook"></i></a></li>
                     <li class="nav-icon"><a href="http://twitter.com/" target="_blank"><i
-                                class="ion-social-twitter"></i></a></li>
+                            class="ion-social-twitter"></i></a></li>
                     <li class="nav-icon"><a href="#" target="_blank"><i class="ion-help-buoy"></i></a></li>
                 </ul>
 
