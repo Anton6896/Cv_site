@@ -1,6 +1,6 @@
 
-env/
-.vscode/
-.idea/
-my_env/
-env_pc/
+env
+.vscode
+.idea
+my_env
+env_pc
