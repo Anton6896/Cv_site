@@ -28,42 +28,6 @@
                 <ul class="nav navbar-nav menu-right">
 
                     <!-- Each section must have corresponding ID ( #hero -> id="hero" ) -->
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">My skills</a></li>
-                    <li><a href="#great_people">Great people</a></li>
-                    <li><a href="#works">My work</a></li>
-
-                    <li class="dropdown megamenu vos">
-                        <a class="dropdown-toggle">Interesting<i class="ion-ios-arrow-down"></i></a>
-                        <ul class="dropdown-menu fullwidth">
-                            <li class="megamenu-content withdesc">
-                                <div class="col-md-3 mg-col">
-                                    <ul>
-                                        <li><h5 style="color: #5bc0de; text-align:center;"> Great Web </h5></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-3 mg-col">
-                                    <ul>
-                                        <li><h5 style="color: #5bc0de; text-align:center;"> Other useful </h5></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-                                        <li><a href="#">link</a></li>
-
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-
-
                     <li class="dropdown">
                         <a class="dropdown-toggle">Blog<i class="ion-ios-arrow-down"></i></a>
                         <ul class="dropdown-menu">
@@ -76,7 +40,17 @@
                             <li><a href="blog-post-fullwidth.html">Fullwidth Post</a></li>
                         </ul>
                     </li>
-                    <li><a href="#contact">Contact</a></li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle">Navigate<i class="ion-ios-arrow-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#skills">My skills</a></li>
+                            <li><a href="#great_people">Great people</a></li>
+                            <li><a href="#works">My work</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </li>
 
                     {% if user.is_superuser %}
                         <li><a href="http://127.0.0.1:8000/admin/" style="color: red">Admin</a></li>
@@ -84,7 +58,8 @@
                     {% if user.is_authenticated %}
                         <li><a href="#">My Profile</a></li>
                     {% else %}
-                        <li><a href="#">Register</a></li>
+                        <li><a href="{% url 'users:register' %}">Register</a></li>
+                        <li><a href="{% url 'users:login' %}">Log in</a></li>
                     {% endif %}
 
                     <li class="nav-separator"></li>

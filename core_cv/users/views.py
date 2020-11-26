@@ -19,3 +19,9 @@ class MyRegisterView(generic.View):
 
     def post(self, *args, **kwarg):
         pass
+
+
+class LogInView_My(generic.View):
+
+    def get(self, *args, **kwarg):
+        return render(self.request, 'login.html')
