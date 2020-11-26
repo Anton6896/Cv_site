@@ -6,51 +6,47 @@
 {% block content %}
 
 
-    {# todo connect contact form and contact info in same frame #}
-    <!-- Contact Info -->
-    {# how to contact me #}
-    <section class="parallax pt110 pb70" data-overlay-dark="8">
+{# todo connect contact form and contact info in same frame #}
+<!-- Contact Info -->
+{# how to contact me #}
+<section class="parallax pt110 pb70" data-overlay-dark="8">
 
-    </section>
-    <!-- End Contact Info -->
+</section>
+<!-- End Contact Info -->
 
-    <!-- Contact Form -->
-    <section id="contact" class="pt120 pb100">
-        <div class="container">
-            <div class="row">
+<!-- Contact Form -->
+<section id="contact" class="pt120 pb100">
+    <div class="container">
+        <div class="row">
 
-                <div class="col-md-12 text-center pb20">
-                    <h2>Log in <br></h2>
-                    <p class="lead">or register <span class="color"><a href="{% url 'users:register' %}"> here </a></span></p>
-                </div>
+            <div class="col-md-12 text-center pb20">
+                <h2>Log in <br></h2>
+                <p class="lead">or register <span class="color"><a href="{% url 'users:register' %}"> here </a></span>
+                </p>
+            </div>
 
-                <div class="col-md-8 col-md-offset-2 contact box-style">
-                    <div id="message-info"></div>
-                    <form method="POST">
+            <div class="col-md-8 col-md-offset-2 contact box-style">
+                <div id="message-info"></div>
+                <form method="POST">
 
-                        {% csrf_token %}
-                        {{ form | crispy }}
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    
+                    <div class="col-md-12">
+                        <input type="submit" class="submit btn btn-lg btn-primary" id="submit" value="Enter" />
+                    </div>
 
-                        <div class="col-md-12">
-                            <input type="submit" class="submit btn btn-lg btn-primary" id="submit"
-                                   value="Enter"/>
-                        </div>
-
-
-
-                    </form>
-
-                    <small class="text-muted">forgot your password ?
-                        <span class="color"><a href="#"> click me </a></span>
-
-                    </small>
-
-                </div>
+                </form>
+                <small class="text-muted">forgot your password ?
+                    <span class="color"><a href="#"> click me </a></span>
+                </small>
 
             </div>
+
         </div>
-    </section>
-    <!-- End Contact Form -->
+    </div>
+</section>
+<!-- End Contact Form -->
 
 
 {% endblock content %}

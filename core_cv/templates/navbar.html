@@ -57,6 +57,7 @@
                     {% endif %}
                     {% if user.is_authenticated %}
                         <li><a href="#">My Profile</a></li>
+                        <li><a href="#">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'users:register' %}">Register</a></li>
                         <li><a href="{% url 'users:login' %}">Log in</a></li>
