@@ -26,7 +26,7 @@ SECRET_KEY = 'q5^r+7zdz3h5bo0n2!37n*%c8l=np4^e-*4od=nu7u288hsy__'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['AntonR.pythonanywhere.com']
 
 
 # Application definition
@@ -132,6 +132,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = 'users_login' 
+LOGIN_URL = 'users_login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
