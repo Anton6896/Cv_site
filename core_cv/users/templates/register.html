@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -29,21 +30,28 @@
 
                     <form method="post">
 
-{#                        todo my register form is here #}
 
-{#                        <div class="col-sm-12">#}
-{#                            <input name="name" id="name" placeholder="Your Name *"/>#}
-{#                        </div>#}
-{#                        <div class="col-sm-6">#}
-{#                            <input name="email" id="email" placeholder="Your Email *"/>#}
-{#                        </div>#}
-{#                        <div class="col-sm-6">#}
-{#                            <input name="phone" id="phone" placeholder="Your Phone"/>#}
-{#                        </div>#}
-{#                        <div class="col-sm-12">#}
-{#                            <textarea name="message" rows="9" id="message" placeholder="Your Message *"></textarea>#}
-{#                        </div>#}
+                        <!-- todo my register form is here -->
+                        <!-- 
 
+                            <div class="col-sm-12">
+                            <input name="name" id="name" placeholder="Your Name *"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <input name="email" id="email" placeholder="Your Email *"/>
+                       </div>
+                        <div class="col-sm-6">
+                            <input name="phone" id="phone" placeholder="Your Phone"/>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea name="message" rows="9" id="message" placeholder="Your Message *"></textarea>
+                        </div>
+
+                         -->
+
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        
 
                         <div class="col-md-12">
                             <input type="submit" class="submit btn btn-lg btn-primary" id="submit"

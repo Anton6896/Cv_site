@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile, GuestProfile
 
-
-class UserRegisterForm(UserCreationForm):
+#? now working on register form 
+class UserRegisterForm_my(UserCreationForm):
     email = forms.EmailField()
 
     class Meta:
@@ -32,4 +32,4 @@ class ProfileUpdateForm(forms.ModelForm):
 class GuestContactForm(forms.ModelForm):
     class Meta:
         model = GuestProfile
-        fields = ['name', 'email', 'phone', 'message']
+        fields = ['name', 'email', 'message']
