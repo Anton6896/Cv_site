@@ -13,7 +13,10 @@ from rest_framework.response import Response
 
 
 class CreateVotingApi(generics.CreateAPIView):
-    # create new voting data (name , text for voting )
+    '''
+    create new voting question , on create have an signal that will create 
+    first vote as user that created the question ( choice = pass )
+    '''
     serializer_class = serializers.VotingSerializerApi
     permission_classes = [
         permissions.IsAuthenticated, my_permissions.IsCommittee]
@@ -101,10 +104,3 @@ class VotingPost(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
-class VotingPost_testing(views.APIView):
-    # user voting for the given vote object
-    # my idea here is to post thru the Vote class users choice 
-    # but not necessary (i will leave it for now ) 
-    def post(self, request, pk):
-        pass
