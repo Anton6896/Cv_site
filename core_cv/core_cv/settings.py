@@ -25,7 +25,7 @@ SECRET_KEY = 'q5^r+7zdz3h5bo0n2!37n*%c8l=np4^e-*4od=nu7u288hsy__'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['AntonR.pythonanywhere.com']
+ALLOWED_HOSTS = ['AntonR.pythonanywhere.com', '127.0.0.1']
 
 # Application definition
 
@@ -38,8 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # my app
-    'users',
+    'users.apps.UsersConfig',
     'crispy_forms',
+
+    # api
+    'accounts.apps.AccountsConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'drf_multiple_model',
 ]
 
 MIDDLEWARE = [
