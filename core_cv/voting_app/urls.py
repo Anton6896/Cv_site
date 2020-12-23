@@ -6,7 +6,6 @@ app_name = 'voting_app'
 urlpatterns = [
     path('api/create_voting/', my_view.CreateVotingApi.as_view()),
     path('api/voting_post/', my_view.VotingPost.as_view()),
-    path('api/voting_post_testing/<int:pk>', my_view.VotingPost_testing.as_view()),
     path('api/user_vote_detail/', my_view.AllUserVoteList.as_view()),
     path('api/user_un_vote_detail/', my_view.AllUserUnVoteList.as_view()),
     path('api/list_active_voting/', my_view.ListActiveVoting.as_view()),
