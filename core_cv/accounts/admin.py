@@ -8,12 +8,13 @@ class CustomUserAdmin(UserAdmin):
     add_form = SighUpForm
     model = CustomUser
     list_display = ['email', 'username', 'role']
-    list_filter = ('email', 'is_staff', 'is_active',)
+    list_filter = ('role', )
 
     fieldsets = (
         *UserAdmin.fieldsets,  # original form fieldsets, expanded
         (                      # new fieldset added on to the bottom
-            'Custom Field Heading',  # group heading of your choice; set to None for a blank space instead of a header
+            # group heading of your choice; set to None for a blank space instead of a header
+            'Custom Field Heading',
             {
                 'fields': (
                     'role',
@@ -26,7 +27,7 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    
+
     search_fields = ('email',)
     ordering = ('email',)
 

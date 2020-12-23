@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     # apps
     'accounts.apps.AccountsConfig',
+    'voting_app.apps.VotingAppConfig',
     'crispy_forms',
 
     # api
@@ -143,6 +144,10 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 REST_FRAMEWORK = {
+
+    'DATETIME_FORMAT': "%Y-%m-%d %H:%M",
+
+
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
@@ -153,5 +158,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+
+
+    
 }
