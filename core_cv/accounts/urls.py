@@ -8,14 +8,15 @@ urlpatterns = [
     # basic web 
     path('', acc_views.HomeView.as_view(), name='home'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'),name='logout'),
     path('register/', acc_views.MyRegisterView.as_view(), name='register'),
 
 
     # api calls
-    path('committee_create/', acc_views.CommitteeUserCreationView.as_view()),
-    path('tenant_create/', acc_views.TenantUserCreationView.as_view()),
-    path('tetant_list/', acc_views.TenantsListView.as_view()),
-    path('tetant_detail/<int:pk>', acc_views.TenantDetailView.as_view()),
+    path('api/committee_create/', acc_views.CommitteeUserCreationView.as_view()),
+    path('api/tenant_create/', acc_views.TenantUserCreationView.as_view()),
+    path('api/tetant_list/', acc_views.TenantsListView.as_view()),
+    path('api/tetant_detail/<int:pk>/', acc_views.TenantDetailView.as_view()),
 
 ]
 

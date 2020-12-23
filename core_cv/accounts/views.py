@@ -3,25 +3,60 @@ from . import serializers
 from . import my_permissions
 from . import models
 
-from django.shortcuts import render
-from django.views import generic
-from django.urls import reverse_lazy
-from .forms import UserRegisterForm_my
+from django.views.generic import View, UpdateView
+from .forms import SighUpForm
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
 
 
 # regular html view     ====================================================================
-class HomeView(generic.View):
+class HomeView(View):
     def get(self, *args, **kwarg):
         return render(self.request, 'index.html')
 
 
-class MyRegisterView(generic.CreateView):
-    form_class = UserRegisterForm_my
-    template_name = "register.html"
-    success_url = reverse_lazy("accounts:login")
+class MyRegisterView(SuccessMessageMixin, View):
+
+    def get(self, *args, **kwarg):
+        form = SighUpForm()
+
+        context = {
+            'title': 'register',
+            'form': form
+        }
+
+        return render(self.request, 'register.html', context)
+
+    def post(self, *arg, **kwarg):
+        form = SighUpForm(self.request.POST)
+
+        context = {
+            'title': 'register',
+            'form': form
+        }
+
+        if form.is_valid():
+            form.save()
+
+            # log in user
+            user = authenticate(username=form.cleaned_data.get('username'),
+                                password=form.cleaned_data.get('password1'))
+            if user:  # check the valid user before login
+                if user.is_active:
+                    login(self.request, user)
+
+            messages.success(self.request, 'you are was registred')
+            return redirect('/')
+        else:
+            form = SighUpForm(self.request.POST)
+
+        return render(self.request, 'register.html', context=context)
 
 
-class UpdateProfileView(generic.UpdateView):
+class UpdateProfileView(UpdateView):
     # todo user profile update / change form
     pass
 

@@ -22,6 +22,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
+
+    # api
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth-token/', include('djoser.urls.authtoken')),
 ]
 
 # default medea folder

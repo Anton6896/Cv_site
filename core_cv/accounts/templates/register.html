@@ -5,70 +5,45 @@
 {% block content %}
 
 
-    {# todo connect contact form and contact info in same frame #}
-    <!-- Contact Info -->
-    {# how to contact me #}
-    <section class="parallax pt110 pb70" data-overlay-dark="8">
+{# todo connect contact form and contact info in same frame #}
+<!-- Contact Info -->
+{# how to contact me #}
+<section class="parallax pt110 pb70" data-overlay-dark="8">
 
-    </section>
-    <!-- End Contact Info -->
+</section>
+<!-- End Contact Info -->
 
-    <!-- Contact Form -->
-    <section id="contact" class="pt120 pb100">
-        <div class="container">
-            <div class="row">
+<!-- Contact Form -->
+<section id="contact" class="pt120 pb100">
+    <div class="container">
+        <div class="row">
 
-                <div class="col-md-12 text-center pb20">
-                    <h2>Hello , Register here</h2>
-                    <p class="lead">or <span class="color">
+            <div class="col-md-12 text-center pb20">
+                <h2>Hello , Register here</h2>
+                <p class="lead">or <span class="color">
                         <a href="{% url 'accounts:login' %}"> log in </a>
                     </span></p>
-                </div>
-
-                <div class="col-md-8 col-md-offset-2 contact box-style">
-                    <div id="message-info"></div>
-
-                    <form method="post">
-
-
-                        <!-- todo my register form is here -->
-                        <!-- 
-
-                            <div class="col-sm-12">
-                            <input name="name" id="name" placeholder="Your Name *"/>
-                        </div>
-                        <div class="col-sm-6">
-                            <input name="email" id="email" placeholder="Your Email *"/>
-                       </div>
-                        <div class="col-sm-6">
-                            <input name="phone" id="phone" placeholder="Your Phone"/>
-                        </div>
-                        <div class="col-sm-12">
-                            <textarea name="message" rows="9" id="message" placeholder="Your Message *"></textarea>
-                        </div>
-
-                         -->
-
-                        {% csrf_token %}
-                        <div class="col-sm-6" > {{ form.email }} </div>
-                        <div class="col-sm-6" > {{ form.username }} </div>
-                        <div class="col-sm-6" > {{ form.password1 }} </div>
-                        <div class="col-sm-6" > {{ form.password1 }} </div>
-                    
-                        
-
-                        <div class="col-md-12">
-                            <input type="submit" class="submit btn btn-lg btn-primary" id="submit"
-                                   value="Register"/>
-                        </div>
-
-                    </form>
-                </div>
-
             </div>
+
+            <div class="col-md-8 col-md-offset-2 contact box-style">
+                <div id="message-info"></div>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+                    {{ form | crispy }}
+
+                    <div class="col-md-12">
+                        <input type="submit" class="submit btn btn-lg btn-primary" id="submit" value="Register" />
+                    </div>
+
+                </form>
+            </div>
+
         </div>
-    </section>
-    <!-- End Contact Form -->
+    </div>
+</section>
+<!-- End Contact Form -->
 
 
 {% endblock content %}

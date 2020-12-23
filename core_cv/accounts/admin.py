@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
-from .forms import UserRegisterForm_my
+from .forms import SighUpForm
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = UserRegisterForm_my
+    add_form = SighUpForm
     model = CustomUser
     list_display = ['email', 'username', 'role']
+    list_filter = ('email', 'is_staff', 'is_active',)
 
     fieldsets = (
         *UserAdmin.fieldsets,  # original form fieldsets, expanded
@@ -25,6 +26,9 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
+    
+    search_fields = ('email',)
+    ordering = ('email',)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
