@@ -25,7 +25,7 @@ SECRET_KEY = 'q5^r+7zdz3h5bo0n2!37n*%c8l=np4^e-*4od=nu7u288hsy__'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['AntonR.pythonanywhere.com']
+ALLOWED_HOSTS = ['AntonR.pythonanywhere.com', '127.0.0.1']
 
 # Application definition
 
@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # my app
-    'users',
+    # apps
+    'accounts.apps.AccountsConfig',
     'crispy_forms',
+
+    # api
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'drf_multiple_model'
+
 ]
 
 MIDDLEWARE = [
@@ -59,7 +66,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'users/templates'),
+            os.path.join(BASE_DIR, 'accounts/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -133,3 +140,18 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
