@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from PIL import Image
 
 
+# todo ove all functionality to the account app 
+
 
 # extend the user profile model
 class Profile(models.Model):
@@ -29,9 +31,4 @@ class Profile(models.Model):
             print(f'where is the file for img working ?')
 
 
-class GuestProfile(models.Model):
-    # todo create form for fill guest profile
-    name = models.CharField(max_length=100, blank=False)
-    email = models.EmailField(blank=False)
-    message = models.TextField(blank=True, null=True)
-    phone = models.CharField(max_length=20, blank=False)
+

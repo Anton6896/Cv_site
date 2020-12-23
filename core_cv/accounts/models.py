@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
+import os
+import uuid
+
+def customer_image_file_path(instance, filename):
+    """Generate file path for new image"""
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+
+    return os.path.join('upload/customer/', filename)
 
 
 class CustomUser(AbstractUser):
@@ -11,7 +20,7 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'users'
 
     # my additional fields in here
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to=customer_image_file_path)
     building_community_name = models.CharField(
         max_length=200, default='no_name_')
     full_address = models.CharField(max_length=255, default='no_address_')

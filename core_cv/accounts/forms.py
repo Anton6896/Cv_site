@@ -1,23 +1,26 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
+from django.contrib.auth.models import User
 
 
-class MyUser(UserCreationForm):
+class UserRegisterForm_my(UserCreationForm):
+    # register regular user build in django functionality 
+    def __init__(self, *args, **kwargs):
+        super(UserRegisterForm_my, self).__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs["placeholder"] = "Enter Password"
+        self.fields['username'].widget.attrs["placeholder"] = "UserName"
 
     class Meta:
-        model = CustomUser
-        fields = ('username', 'email', 'image', 'role')
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
-
-class CustomUserChangeForm(UserChangeForm):
-
-    class Meta:
-        model = CustomUser
-        fields = ('username', 'email', 'image')
-
-
-# class TenantForm(UserCreationForm):
-#     class Meta:
-#         model = Tenant
-#         fields = ('username', 'email', 'image', 'apartment')
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "name": "email",
+                "id": "email",
+                "placeholder": "Your Email *"
+            }
+        )
+    )

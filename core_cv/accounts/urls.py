@@ -4,7 +4,10 @@ from . import views as acc_views
 app_name = 'accounts'
 
 urlpatterns = [
-    # path('register/', acc_views.SignUpView.as_view(), name='register'),
+    # basic web 
+    path('', acc_views.HomeView.as_view(), name='home'),
+    path('login/', acc_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('register/', acc_views.MyRegisterView.as_view(), name='register'),
 
 
     # api calls

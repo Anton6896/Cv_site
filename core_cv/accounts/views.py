@@ -1,23 +1,35 @@
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from rest_framework.serializers import Serializer
-from . import forms
 from rest_framework import generics, permissions
 from . import serializers
 from . import my_permissions
 from . import models
 
+from django.shortcuts import render
+from django.views import generic
+from django.urls import reverse_lazy
+from . import forms
 
-# class SignUpView(CreateView):
-#     form_class = forms.MyUser
-#     success_url = reverse_lazy('login')
-#     template_name = 'registration/register.html'
+
+# regular html view     ====================================================================
+class HomeView(generic.View):
+    def get(self, *args, **kwarg):
+        return render(self.request, 'index.html')
 
 
-#  api views
+class MyRegisterView(generic.CreateView):
+    form_class = forms.UserRegisterForm_my
+    template_name = "register.html"
+    success_url = reverse_lazy("accounts:login")
+
+
+class UpdateProfileView(generic.UpdateView):
+    # todo user profile update / change form
+    pass
+
+
+#  api views            ====================================================================
 
 class CommitteeUserCreationView(generics.CreateAPIView):
-    #! post_save add it to the group -> 'committee_group' for granting permissions # 
+    #! post_save add it to the group -> 'committee_group' for granting permissions #
     serializer_class = serializers.CommitteeSerializer
     permission_classes = [permissions.AllowAny]
 

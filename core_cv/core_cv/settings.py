@@ -37,16 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # my app
-    'users.apps.UsersConfig',
+    # apps
+    'accounts.apps.AccountsConfig',
     'crispy_forms',
 
     # api
-    'accounts.apps.AccountsConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'drf_multiple_model',
+    'drf_multiple_model'
+
 ]
 
 MIDDLEWARE = [
@@ -140,3 +140,18 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
