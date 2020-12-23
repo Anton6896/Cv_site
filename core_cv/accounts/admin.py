@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .forms import MyUser
 from .models import CustomUser
+from .forms import UserRegisterForm_my
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = MyUser
+    add_form = UserRegisterForm_my
     model = CustomUser
     list_display = ['email', 'username', 'role']
 

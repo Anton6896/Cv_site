@@ -1,12 +1,13 @@
 from django.urls import path
 from . import views as acc_views
+from django.contrib.auth import views as auth_views
 
 app_name = 'accounts'
 
 urlpatterns = [
     # basic web 
     path('', acc_views.HomeView.as_view(), name='home'),
-    path('login/', acc_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('register/', acc_views.MyRegisterView.as_view(), name='register'),
 
 
