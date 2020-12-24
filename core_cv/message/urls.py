@@ -11,5 +11,7 @@ urlpatterns = [
     path('api/message_list/', views.MessageListApi.as_view()),
     path('api/issue_list', views.IssueMessageListApi.as_view()),
     path('api/comment_list/<int:pk>', views.CommentListApi.as_view()),
+    # search field look up
+    path('api/query_list/', views.MessageQueryListApi.as_view()), # ?q=slug
 
 ]

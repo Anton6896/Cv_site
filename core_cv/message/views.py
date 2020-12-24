@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
+from .models import Mesage
+from django.db.models import Q
 
 
 class MessageCreateApi(CreateAPIView):
@@ -35,3 +37,20 @@ class MessageListApi(CreateAPIView):
 class IssueMessageListApi(CreateAPIView):
     # list of all issues (message tag)
     pass
+
+
+class MessageQueryListApi(CreateAPIView):
+    # look thru the search field q , Q
+    serializer_class = None
+    permission_classes = None
+
+    def get_queryset(self):
+        if self.request.method == "GET":
+            q = self.request.GET.get('q', None)
+            if q is not None:
+                # using Q library for multi queryset
+                return Mesage.objects.filter(
+                    Q(title__icontains=q) |
+                    Q(author__username=q) |
+                    Q(content__icontains=q)
+                )

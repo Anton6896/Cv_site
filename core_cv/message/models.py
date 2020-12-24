@@ -83,6 +83,9 @@ class Mesage(models.Model):
         # send notification if pass a week in issue message
         return timezone.now() == self.created_at + timezone.timedelta(days=7)
 
+    def is_issue(self):
+        return self.tag == 'issue'
+
     class Meta:
         ordering = ["-timestamp", "-created_at"]
 
