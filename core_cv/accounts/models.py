@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from PIL import Image
 import os
 import uuid
-from django.contrib.auth.models import User
 
 
 def customer_image_file_path(instance, filename):
