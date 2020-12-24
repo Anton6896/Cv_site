@@ -1,16 +1,15 @@
 from django.db import models
 from accounts.models import CustomUser
-import os
-import uuid
 from PIL import Image
 from django.utils import timezone
 
 
 def customer_image_file_path(instance, filename):
+    import os
+    import uuid
     """Generate file path for new image"""
     ext = filename.split('.')[-1]
     filename = f'{uuid.uuid4()}.{ext}'
-
     return os.path.join('upload/message_pic/', filename)
 
 
@@ -49,3 +48,19 @@ class Mesage(models.Model):
 
     def __str__(self):
         return " _("+self.title + " : by - " + self.user.username + ")_ "
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("message:detail", kwargs={"pk": self.pk})
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    message = models.ForeignKey(Mesage, on_delete=models.CASCADE)
+    comment = models.ForeignKey(self, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
+
+    def __str__(self):
+        return "comment by : " + self.user.username + " , for: " + self.message.title
