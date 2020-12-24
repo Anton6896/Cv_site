@@ -17,3 +17,6 @@ goal :
 . adjust profile to site requirements 
 . ged data from profile to main page 
 . add other features to main page ( other sites, interesting things )
+
+
+# for learning purpuse connected /api modules .
