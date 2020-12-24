@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Mesage, Comment
 
-# Register your models here.
+admin.site.register(Mesage)
+admin.site.register(Comment)

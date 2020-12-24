@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import CustomUser
+from ..accounts.models import CustomUser
 from PIL import Image
 from django.utils import timezone
 
@@ -47,7 +47,7 @@ class Mesage(models.Model):
             print(f'where is the file for img working ?')
 
     def __str__(self):
-        return " _("+self.title + " : by - " + self.user.username + ")_ "
+        return " _(" + self.title + " : by - " + self.user.username + ")_ "
 
     def get_absolute_url(self):
         from django.urls import reverse
