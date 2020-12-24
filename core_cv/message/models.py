@@ -20,17 +20,25 @@ class Mesage(models.Model):
     image = models.ImageField(default='default.jpg',
                               upload_to=customer_image_file_path)
     created_at = models.DateTimeField(default=timezone.now)
+    # update update time for message
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     content = models.TextField()
+    priority = models.IntegerField(default=0)
+    is_read = models.BooleanField(default=False)
 
     STATUS_CHOICES = (
         ('done', 'done'),
         ('working_on', 'working_on'),
         ('on_hold', 'on_hold'),
     )
+    TAG_CHOICES = (
+        ('message', 'message'),
+        ('issue', 'issue'),
+    )
+    tag = models.CharField(choices=TAG_CHOICES,
+                           max_length=15, default='message')
     status = models.CharField(choices=STATUS_CHOICES,
                               max_length=15, default='working_on')
-
-    priority = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         """change img size"""
@@ -57,7 +65,7 @@ class Mesage(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     message = models.ForeignKey(Mesage, on_delete=models.CASCADE)
-    comment = models.ForeignKey(self, on_delete=models.CASCADE)
+    # comment = models.ForeignKey(self, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(default=timezone.now)
     content = models.TextField()
