@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # apps
     'accounts.apps.AccountsConfig',
     'voting_app.apps.VotingAppConfig',
+    'message.apps.MessageConfig',
     'crispy_forms',
 
     # api
@@ -161,5 +162,5 @@ REST_FRAMEWORK = {
     ],
 
 
-    
+
 }
