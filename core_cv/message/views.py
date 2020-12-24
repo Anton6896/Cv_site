@@ -1,36 +1,37 @@
 from django.shortcuts import render
+from rest_framework.generics import CreateAPIView
 
 
-class MessageCreateApi():
+class MessageCreateApi(CreateAPIView):
     # create
     pass
 
 
-class CommentCreateApi():
+class CommentCreateApi(CreateAPIView):
     # comment for message or issue
     pass
 
 
-class MessageDetailApi():
+class MessageDetailApi(CreateAPIView):
     # update, delete message/issue
     pass
 
 
-class CommentDetailApi():
+class CommentDetailApi(CreateAPIView):
     # update, delete message
     pass
 
 
-class CommentListApi():
+class CommentListApi(CreateAPIView):
     # List of all available comments for specific message by pk
     pass
 
 
-class MessageListApi():
+class MessageListApi(CreateAPIView):
     # List of all available messages
     pass
 
 
-class IssueMessageListApi():
+class IssueMessageListApi(CreateAPIView):
     # list of all issues (message tag)
     pass
