@@ -7,6 +7,10 @@ from . import serializers
 from rest_framework.generics import (
     CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 )
+from rest_framework.filters import (
+    SearchFilter, OrderingFilter,
+)
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class MessageCreateApi(CreateAPIView):
@@ -21,12 +25,13 @@ class MessageCreateApi(CreateAPIView):
 
 
 class CommentCreateApi(CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     # comment for message or issue
     pass
 
 
 class MessageDetailApi(RetrieveUpdateDestroyAPIView):
-    # using for message and for issue as one
+    # using for message and for issue as one (retrieve, update, delete )
     permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
     serializer_class = serializers.EditMessageSerializer
     queryset = Mesage.objects.all()
@@ -38,6 +43,8 @@ class CommentDetailApi(RetrieveUpdateDestroyAPIView):
 
 
 class CommentListApi(ListAPIView):
+    pagination_class = LimitOffsetPagination
+    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
     pass
 
 
@@ -45,6 +52,7 @@ class MessageListApi(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.ListMessageSerializer
     queryset = Mesage.objects.filter(tag='message').filter(is_read=False).all()
+    pagination_class = LimitOffsetPagination
 
 
 class IssueMessageListApi(ListAPIView):
@@ -52,22 +60,33 @@ class IssueMessageListApi(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.ListIssueSerializer
     queryset = Mesage.objects.filter(tag='issue').filter(status='working_on').all()
+    pagination_class = LimitOffsetPagination
 
 
 class MessageSearchFieldApi(ListAPIView):
-    # look thru the search field q , Q
-    permission_classes = [permissions.IsAuthenticated, my_permissions.MessageOwner]
+    # look thru the search field q or search
+
+    # /api/search_field/?search= question
+    # /api/search_field/?q= question
+    # /api/search_field/?search=question&q= question
+    # /api/search_field/?search=21&ordering=-title
+    pagination_class = LimitOffsetPagination
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.EditMessageSerializer
+    filter_backends = [SearchFilter, OrderingFilter, ]
+    search_fields = ['title', 'author__username', 'content', 'status', 'tag']
 
     def get_queryset(self):
-        if self.request.method == "GET":
-            q = self.request.GET.get('q', None)
-            if q is not None:
-                # using Q library for multi queryset
-                return Mesage.objects.filter(
-                    Q(title__icontains=q) |
-                    Q(author__username=q) |
-                    Q(content__icontains=q) |
-                    Q(status=q) |
-                    Q(tag=q)
-                )
+        queryset = Mesage.objects.all()
+        q = self.request.GET.get('q', None)
+        if q:
+            # using Q library for multi queryset
+            queryset = Mesage.objects.filter(
+                Q(title__icontains=q) |
+                Q(author__username=q) |
+                Q(content__icontains=q) |
+                Q(status=q) |
+                Q(tag=q)
+            ).distinct()
+
+        return queryset

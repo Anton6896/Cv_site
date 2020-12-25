@@ -19,7 +19,7 @@ class CreateVotingApi(generics.CreateAPIView):
     '''
     serializer_class = serializers.VotingSerializerApi
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommittee]
+        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -29,7 +29,7 @@ class UpdateVotingApi(generics.RetrieveUpdateDestroyAPIView):
     # update existing voting data , look by pk
     serializer_class = serializers.UpdateVotingSerializerApi
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommittee]
+        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee]
     queryset = models.Voting.objects.filter(is_active=True).all()
 
 

@@ -78,7 +78,7 @@ class TenantUserCreationView(generics.CreateAPIView):
     queryset = models.CustomUser.objects.all()
 
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommittee
+        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee
     ]
 
     def perform_create(self, serializer):
@@ -90,7 +90,7 @@ class TenantsListView(generics.ListAPIView):
     queryset = models.CustomUser.objects.filter(role='tenant').all()
 
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommittee
+        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee
     ]
 
 
@@ -98,5 +98,5 @@ class TenantDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ListTenantsSerializer
     queryset = models.CustomUser.objects.filter(role='tenant').all()
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.UpdateTenant
+        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee
     ]

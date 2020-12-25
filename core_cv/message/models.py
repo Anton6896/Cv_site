@@ -4,6 +4,12 @@ from PIL import Image
 from django.utils import timezone
 
 
+# todo create the schedule task that check if Message (issue tag)
+#  is created more than one week -> send message to user (admin)
+#  >>> after research the task can be implemented with Django+Celery
+# https://medium.com/@kevin.michael.horan/scheduling-tasks-in-django-with-the-advanced-python-scheduler-663f17e868e6#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjZhZGMxMDFjYzc0OThjMDljMDEwZGMzZDUxNzZmYTk3Yzk2MjdlY2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2MDg4OTMzODksImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMTA5ODc2NDY0MzM0MjcwMzQzMSIsImVtYWlsIjoiYW50b242ODk2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoiQW50b24gUiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHZ0txaG9ZOFZVVWdKTzJtSWV5UWFvMkx0UWlSc3NzU1h3OTZxRHFzc2c9czk2LWMiLCJnaXZlbl9uYW1lIjoiQW50b24iLCJmYW1pbHlfbmFtZSI6IlIiLCJpYXQiOjE2MDg4OTM2ODksImV4cCI6MTYwODg5NzI4OSwianRpIjoiZTAzYjlkMjRlOTc4NWYxMTgwMDFlNmYxYWRhZjVkNjc2ODdjMjYzYyJ9.UE-jMYuwkDViyJlXXb79ZHusV54P9J5TKI8Fv4fCZkrleDg5vNMU6KaBW47tVgbx5LDSEefZQzGKvZzRrMqF1uq8vi3h4v0_1dwqjpneEX24zH_ieBLWhGditbwpuurgtoEwSqPZnu5NFlqdF5rJFHotTykh6I-gX4-n4v_Grf_MoqYqxAafWutyWib0A5KNz_nVr8tUGRbAcrN6-u2mnhPcRuR2r5IiPTNL90hipUFueBtz7Our4IewvrqnEiQUg6ANowPIvLLnCuQ7SjadTO98wwiBYgb_H_SgESaSTYxsN80RBKb38wVuKdXBQ9kXnvVEaVeYXR1ub6hthiO4-g
+
+
 def customer_image_file_path(instance, filename):
     import os
     import uuid
@@ -58,7 +64,6 @@ class Mesage(models.Model):
                               max_length=15, default='working_on')
 
     def save(self, *args, **kwargs):
-        """change img size"""
         super(Mesage, self).save(*args, **kwargs)
 
         try:
