@@ -27,7 +27,7 @@ class UpdateTenant(permissions.BasePermission):
         return not request.user.is_tenant()
 
 
-class MessageOwner(permissions.BasePermission):
+class ObjOwner(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.
     """

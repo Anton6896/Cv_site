@@ -27,17 +27,17 @@ class CommentCreateApi(CreateAPIView):
 
 class MessageDetailApi(RetrieveUpdateDestroyAPIView):
     # using for message and for issue as one
-    permission_classes = [permissions.IsAuthenticated, my_permissions.MessageOwner]
+    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
     serializer_class = serializers.EditMessageSerializer
     queryset = Mesage.objects.all()
 
 
-class CommentDetailApi(CreateAPIView):
-    # update, delete message
+class CommentDetailApi(RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
     pass
 
 
-class CommentListApi(CreateAPIView):
+class CommentListApi(ListAPIView):
     pass
 
 
