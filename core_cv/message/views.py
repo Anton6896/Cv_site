@@ -10,6 +10,9 @@ from rest_framework.generics import (
 
 
 class MessageCreateApi(CreateAPIView):
+    """
+    on crete have signal that check if instance == message -> status = done
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.CreateMessageSerializer
 
@@ -23,6 +26,7 @@ class CommentCreateApi(CreateAPIView):
 
 
 class MessageDetailApi(RetrieveUpdateDestroyAPIView):
+    # using for message and for issue as one
     permission_classes = [permissions.IsAuthenticated, my_permissions.MessageOwner]
     serializer_class = serializers.EditMessageSerializer
     queryset = Mesage.objects.all()
@@ -34,7 +38,6 @@ class CommentDetailApi(CreateAPIView):
 
 
 class CommentListApi(CreateAPIView):
-    # List of all available comments for specific message by pk
     pass
 
 
@@ -51,10 +54,10 @@ class IssueMessageListApi(ListAPIView):
     queryset = Mesage.objects.filter(tag='issue').filter(status='working_on').all()
 
 
-class MessageSearchFieldApi(CreateAPIView):
+class MessageSearchFieldApi(ListAPIView):
     # look thru the search field q , Q
-    serializer_class = None
-    permission_classes = None
+    permission_classes = [permissions.IsAuthenticated, my_permissions.MessageOwner]
+    serializer_class = serializers.EditMessageSerializer
 
     def get_queryset(self):
         if self.request.method == "GET":
@@ -64,5 +67,7 @@ class MessageSearchFieldApi(CreateAPIView):
                 return Mesage.objects.filter(
                     Q(title__icontains=q) |
                     Q(author__username=q) |
-                    Q(content__icontains=q)
+                    Q(content__icontains=q) |
+                    Q(status=q) |
+                    Q(tag=q)
                 )

@@ -12,6 +12,7 @@ urlpatterns = [
     path('api/issue_list/', views.IssueMessageListApi.as_view()),  # ok
     path('api/comment_list/<int:pk>', views.CommentListApi.as_view()),
     # search field look up
-    path('api/search_field/', views.MessageSearchFieldApi.as_view()),  # ?q=slug
+    path('api/search_field/', views.MessageSearchFieldApi.as_view()),  # ok   (?q= word)
+
 
 ]
