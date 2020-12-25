@@ -1,6 +1,5 @@
-
 env
+env_win
 .vscode
 .idea
-my_env
-env_pc
+

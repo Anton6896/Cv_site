@@ -3,9 +3,9 @@ from .models import Mesage
 
 
 class MessageModelAdmin(admin.ModelAdmin):
-    list_display = ["title", "timestamp", ]
-    list_display_links = ["timestamp", ]
-    list_filter = ["timestamp", ]
+    list_display = ['pk', "title", 'tag', "timestamp", 'status']
+    list_display_links = ["timestamp", 'tag', ]
+    list_filter = ["timestamp", 'is_read' ]
     search_fields = ["title", "content", ]
     list_editable = ["title"]
 

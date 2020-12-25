@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
+from rest_framework import permissions
 from .models import Mesage
 from django.db.models import Q
+from .serializers import CreateMessageSerializer
 
 
 class MessageCreateApi(CreateAPIView):
-    # create
-    pass
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = CreateMessageSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class CommentCreateApi(CreateAPIView):
@@ -35,7 +40,7 @@ class MessageListApi(CreateAPIView):
 
 
 class IssueMessageListApi(CreateAPIView):
-    # list of all issues (message tag)
+    # list of all issues (queryset -> issue tag, working_on, on_hold )
     pass
 
 
