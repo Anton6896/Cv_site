@@ -3,6 +3,8 @@ from rest_framework.generics import (
 )
 from rest_framework import permissions
 from accounts import my_permissions
+from django.contrib.contenttypes.models import ContentType
+from .models import Comment
 
 
 # Create your views here.
@@ -10,20 +12,17 @@ from accounts import my_permissions
 class CommentCreateApi(CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     # comment for message or issue
-    pass
+
 
 
 class ParentCommentCreateApi(CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     # comment for comment
-    pass
 
 
 class CommentListApi(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    pass
 
 
 class CommentDetailApi(RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
-    pass
