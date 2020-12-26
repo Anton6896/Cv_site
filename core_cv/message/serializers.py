@@ -72,13 +72,10 @@ class ListMessageSerializer(serializers.ModelSerializer):
 
 class CreateCommentSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    message = serializers.HiddenField()
-    title = serializers.CharField(required=True, max_length=200)
 
     class Meta:
         model = Comment
         fields = (
             'author',
-            'message',
             'content',
         )

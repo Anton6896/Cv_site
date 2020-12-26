@@ -79,9 +79,6 @@ class Mesage(models.Model):
         except IOError:
             print(f'where is the file for img working ?')
 
-    def __str__(self):
-        return self.title + "__ by: " + self.author.username
-
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse("message:detail", kwargs={"pk": self.pk})
@@ -101,16 +98,29 @@ class Mesage(models.Model):
     class Meta:
         ordering = ["-timestamp", "-created_at"]
 
+    def __str__(self):
+        if self.is_issue():
+            return f'issue: {self.pk}, title: {self.title}, \tby: {self.author.username}'
+        else:
+            return f'message: {self.pk}, title: {self.title}, \tby: {self.author.username}'
+
 
 # ===========================  Comment section
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
 
 class Comment(models.Model):
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    content_type = models.ForeignKey(Mesage, on_delete=models.CASCADE)
-    # comment = models.ForeignKey(self, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    message = models.ForeignKey(Mesage, on_delete=models.CASCADE, default='')
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
 
-    created_at = models.DateTimeField(default=timezone.now)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    timestamp = models.DateTimeField(default=timezone.now)
     content = models.TextField()
 
     def __str__(self):
-        return "comment by : " + self.author.username + " , for: " + self.message.title
+        return f'comment for: " {self.message.title} "  , < by {self.user.username} > '
