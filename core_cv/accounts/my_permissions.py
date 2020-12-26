@@ -1,15 +1,15 @@
 from rest_framework import permissions
 
 
-class IsOwnerOrCommettee(permissions.BasePermission):
+class IsOwner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
+        return obj.author == request.user or not request.user.is_tenant() or request.user.is_superuser
 
-        # Write permissions are only allowed to the owner of the snippet. or admin
-        return obj.user == request.user or not request.user.is_tenant() or request.user.is_superuser
 
+class IsCommettee(permissions.BasePermission):
     def has_permission(self, request, view):
         return not request.user.is_tenant()
 

@@ -11,7 +11,6 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
-
 # regular html view     ====================================================================
 class HomeView(View):
     def get(self, *args, **kwarg):
@@ -64,7 +63,7 @@ class UpdateProfileView(UpdateView):
 #  api views            ====================================================================
 
 class CommitteeUserCreationView(generics.CreateAPIView):
-    #! post_save add it to the group -> 'committee_group' for granting permissions #
+    # ! post_save add it to the group -> 'committee_group' for granting permissions #
     serializer_class = serializers.CommitteeSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -78,7 +77,7 @@ class TenantUserCreationView(generics.CreateAPIView):
     queryset = models.CustomUser.objects.all()
 
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee
+        permissions.IsAuthenticated, my_permissions.IsCommettee
     ]
 
     def perform_create(self, serializer):
@@ -90,7 +89,7 @@ class TenantsListView(generics.ListAPIView):
     queryset = models.CustomUser.objects.filter(role='tenant').all()
 
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee
+        permissions.IsAuthenticated, my_permissions.IsCommettee
     ]
 
 
@@ -98,5 +97,5 @@ class TenantDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ListTenantsSerializer
     queryset = models.CustomUser.objects.filter(role='tenant').all()
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsOwnerOrCommettee
+        permissions.IsAuthenticated, my_permissions.IsCommettee, my_permissions.IsOwner
     ]
