@@ -13,6 +13,12 @@ class CommentCreateApi(CreateAPIView):
     pass
 
 
+class ParentCommentCreateApi(CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    # comment for comment
+    pass
+
+
 class CommentListApi(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     pass
