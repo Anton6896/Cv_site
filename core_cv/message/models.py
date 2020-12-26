@@ -35,6 +35,8 @@ class MessageManager(models.Manager):
     pass
 
 
+# ===========================  Message section
+
 class Mesage(models.Model):
     objects = MessageManager()  # activate manager
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -99,13 +101,16 @@ class Mesage(models.Model):
     class Meta:
         ordering = ["-timestamp", "-created_at"]
 
-# class Comment(models.Model):
-#     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-#     message = models.ForeignKey(Mesage, on_delete=models.CASCADE)
-#     # comment = models.ForeignKey(self, on_delete=models.CASCADE)
-#
-#     created_at = models.DateTimeField(default=timezone.now)
-#     content = models.TextField()
-#
-#     def __str__(self):
-#         return "comment by : " + self.author.username + " , for: " + self.message.title
+
+# ===========================  Comment section
+
+class Comment(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(Mesage, on_delete=models.CASCADE)
+    # comment = models.ForeignKey(self, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
+
+    def __str__(self):
+        return "comment by : " + self.author.username + " , for: " + self.message.title

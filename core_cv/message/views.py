@@ -1,20 +1,20 @@
+"""
+Pagination is set by default to 10 in settings
+2 section messages and comments (i live them in one place)
+"""
+
 from rest_framework import permissions
-from accounts import my_permissions  # ok
+from accounts import my_permissions
 from .models import Mesage
 from django.db.models import Q
 from . import serializers
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import (
     CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 )
 
-from rest_framework.filters import (
-    SearchFilter, OrderingFilter
-)
 
-
-#  Pagination is set by default to 10 in settings
-
-
+# ===========================  Message section
 class MessageCreateApi(CreateAPIView):
     """
     on crete have signal that check if instance == message -> status = done
@@ -26,27 +26,11 @@ class MessageCreateApi(CreateAPIView):
         serializer.save(author=self.request.user)
 
 
-class CommentCreateApi(CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    # comment for message or issue
-    pass
-
-
 class MessageDetailApi(RetrieveUpdateDestroyAPIView):
     # using for message and for issue as one (retrieve, update, delete )
     permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
     serializer_class = serializers.EditMessageSerializer
     queryset = Mesage.objects.all()
-
-
-class CommentDetailApi(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
-    pass
-
-
-class CommentListApi(ListAPIView):
-    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
-    pass
 
 
 class MessageListApi(ListAPIView):
@@ -89,3 +73,20 @@ class MessageSearchFieldApi(ListAPIView):
 
         return queryset
 
+
+# ===========================  Comment section
+
+class CommentCreateApi(CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    # comment for message or issue
+    pass
+
+
+class CommentListApi(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    pass
+
+
+class CommentDetailApi(RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
+    pass
