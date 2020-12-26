@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import permissions
 from accounts import my_permissions  # ok
 from .models import Mesage
@@ -7,10 +6,13 @@ from . import serializers
 from rest_framework.generics import (
     CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 )
+
 from rest_framework.filters import (
-    SearchFilter, OrderingFilter,
+    SearchFilter, OrderingFilter
 )
-from rest_framework.pagination import LimitOffsetPagination
+
+
+#  Pagination is set by default to 10 in settings
 
 
 class MessageCreateApi(CreateAPIView):
@@ -43,7 +45,6 @@ class CommentDetailApi(RetrieveUpdateDestroyAPIView):
 
 
 class CommentListApi(ListAPIView):
-    pagination_class = LimitOffsetPagination
     permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
     pass
 
@@ -52,15 +53,13 @@ class MessageListApi(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.ListMessageSerializer
     queryset = Mesage.objects.filter(tag='message').filter(is_read=False).all()
-    pagination_class = LimitOffsetPagination
 
 
 class IssueMessageListApi(ListAPIView):
     # list of all issues (queryset -> issue tag, working_on, on_hold )
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = serializers.ListIssueSerializer
+    serializer_class = serializers.ListMessageSerializer
     queryset = Mesage.objects.filter(tag='issue').filter(status='working_on').all()
-    pagination_class = LimitOffsetPagination
 
 
 class MessageSearchFieldApi(ListAPIView):
@@ -70,7 +69,6 @@ class MessageSearchFieldApi(ListAPIView):
     # /api/search_field/?q= question
     # /api/search_field/?search=question&q= question
     # /api/search_field/?search=21&ordering=-title
-    pagination_class = LimitOffsetPagination
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.EditMessageSerializer
     filter_backends = [SearchFilter, OrderingFilter, ]
@@ -90,3 +88,4 @@ class MessageSearchFieldApi(ListAPIView):
             ).distinct()
 
         return queryset
+

@@ -18,12 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('', include('voting_app.urls')),
-    path('', include('message.urls')),
+    path('', include('accounts.urls', namespace='accounts')),
+    path('', include('voting_app.urls', namespace='voting')),
+    path('', include('message.urls', namespace='messages')),
 
     # api
     path('api-auth/', include('rest_framework.urls')),

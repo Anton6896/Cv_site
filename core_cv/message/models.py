@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import CustomUser
 from PIL import Image
 from django.utils import timezone
+import markdown
 
 
 # todo create the schedule task that check if Message (issue tag)
@@ -90,6 +91,10 @@ class Mesage(models.Model):
 
     def is_issue(self):
         return self.tag == 'issue'
+
+    def get_markdown(self):
+        md = markdown.Markdown()
+        return md.convert(self.content)
 
     class Meta:
         ordering = ["-timestamp", "-created_at"]
