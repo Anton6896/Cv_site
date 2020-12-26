@@ -35,8 +35,6 @@ class MessageManager(models.Manager):
     pass
 
 
-# ===========================  Message section
-
 class Mesage(models.Model):
     objects = MessageManager()  # activate manager
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -103,5 +101,3 @@ class Mesage(models.Model):
             return f'issue: {self.pk}, title: {self.title}, \tby: {self.author.username}'
         else:
             return f'message: {self.pk}, title: {self.title}, \tby: {self.author.username}'
-
-
