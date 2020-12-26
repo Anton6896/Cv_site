@@ -37,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # apps
+    # local
     'accounts.apps.AccountsConfig',
     'voting_app.apps.VotingAppConfig',
     'message.apps.MessageConfig',
-    'crispy_forms',
+    'comment.apps.CommentConfig',
 
-    # api
+    # foreign
+    'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',

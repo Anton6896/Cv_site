@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Mesage, Comment
+from .models import Mesage
 
 
 class MessageModelAdmin(admin.ModelAdmin):
@@ -14,4 +14,4 @@ class MessageModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Mesage, MessageModelAdmin)
-admin.site.register(Comment)
+

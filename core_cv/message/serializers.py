@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Mesage, Comment
+from .models import Mesage
 
 
 # ===========================  Message section
@@ -68,14 +68,6 @@ class ListMessageSerializer(serializers.ModelSerializer):
         return str(obj.author.username)
 
 
-# ===========================  Comment section
 
-class CreateCommentSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
-    class Meta:
-        model = Comment
-        fields = (
-            'author',
-            'content',
-        )
+

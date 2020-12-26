@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('accounts.urls', namespace='accounts')),
     path('', include('voting_app.urls', namespace='voting')),
     path('', include('message.urls', namespace='messages')),
+    path('', include('comment.urls', namespace='comments')),
 
     # api
     path('api-auth/', include('rest_framework.urls')),
