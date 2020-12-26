@@ -16,6 +16,9 @@ class CommentManager(models.Manager):
 class Comment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+    objects = CommentManager()
+    timestamp = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
 
     """
     generic foreign key
@@ -30,11 +33,6 @@ class Comment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_pk = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_pk')
-
-    timestamp = models.DateTimeField(default=timezone.now)
-    content = models.TextField()
-
-    objects = CommentManager()
 
     def __str__(self):
         return f'comment for "{self.content_type}" with id {self.object_pk} , by <{self.user.username}>'

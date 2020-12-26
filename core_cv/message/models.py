@@ -3,6 +3,7 @@ from accounts.models import CustomUser
 from PIL import Image
 from django.utils import timezone
 import markdown
+from comment.models import Comment
 
 
 # todo create the schedule task that check if Message (issue tag)
@@ -101,3 +102,8 @@ class Mesage(models.Model):
             return f'issue: {self.pk}, title: {self.title}, \tby: {self.author.username}'
         else:
             return f'message: {self.pk}, title: {self.title}, \tby: {self.author.username}'
+
+    @property
+    def comments(self):
+        # now message.comments  -> all comments for this message as queryset
+        return Comment.objects.filter_by_instance(self)

@@ -2,7 +2,8 @@
 Pagination is set by default to 10 in settings
 2 section messages and comments (i live them in one place)
 """
-
+from django.views.generic import View
+from django.shortcuts import render
 from rest_framework import permissions
 from accounts import my_permissions
 from .models import Mesage
@@ -12,6 +13,12 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import (
     CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 )
+
+
+# ===========================  blog html section
+class BlogHome(View):
+    def get(self, *args, **kwarg):
+        return render(self.request, 'message_grid.html')
 
 
 # ===========================  Message section
