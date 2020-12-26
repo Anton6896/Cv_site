@@ -4,10 +4,15 @@ from . import models
 
 class VotingSerializerApi(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    detail_url = serializers.HyperlinkedIdentityField(
+        view_name='messages:detail',
+        lookup_field='pk'
+    )
 
     class Meta:
         model = models.Voting
         fields = (
+            'detail_url',
             'pk',
             'short_description',
             'long_description',
@@ -104,6 +109,3 @@ class UserUnVotingListSerializer(serializers.Serializer):
         return models.Voting(**attrs)
 
 
-class TestUserVoteSerializer(serializers.Serializer):
-    
-    pass

@@ -6,7 +6,7 @@ from accounts.models import CustomUser
 from message.models import Mesage
 
 
-class CommentManager(models.manager):
+class CommentManager(models.Manager):
     def filter_by_instance(self, instance):
         # instance.__class__  -> return the instance by class for more generic use
         content_type = ContentType.objects.get_for_model(instance.__class__)

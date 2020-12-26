@@ -16,9 +16,9 @@ def customer_image_file_path(instance, filename):
 class CustomUser(AbstractUser):
 
     class Meta:
-        db_table = 'CostumUser'
-        verbose_name = 'costum_user'
-        verbose_name_plural = 'costum_users'
+        db_table = 'CustomUser'
+        verbose_name = 'custom_user'
+        verbose_name_plural = 'custom_users'
 
     # my additional fields in here
     image = models.ImageField(default='default.jpg',
