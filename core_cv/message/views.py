@@ -5,7 +5,7 @@ Pagination is set by default to 10 in settings
 from django.views.generic import View
 from django.shortcuts import render
 from rest_framework import permissions
-from accounts import my_permissions
+from accounts.my_permissions import ObjOwner
 from .models import Mesage
 from django.db.models import Q
 from . import serializers
@@ -16,6 +16,7 @@ from rest_framework.generics import (
 
 
 # ===========================  blog html section
+# todo blog as html version with comments
 class BlogHome(View):
     def get(self, *args, **kwarg):
         return render(self.request, 'message_grid.html')
@@ -35,7 +36,7 @@ class MessageCreateApi(CreateAPIView):
 
 class MessageDetailApi(RetrieveUpdateDestroyAPIView):
     # using for message and for issue as one (retrieve, update, delete )
-    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
+    permission_classes = [permissions.IsAuthenticated, ObjOwner]
     serializer_class = serializers.EditMessageSerializer
     queryset = Mesage.objects.all()
 
@@ -79,21 +80,3 @@ class MessageSearchFieldApi(ListAPIView):
             ).distinct()
 
         return queryset
-
-
-# ===========================  Comment section
-
-class CommentCreateApi(CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    # comment for message or issue
-    pass
-
-
-class CommentListApi(ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    pass
-
-
-class CommentDetailApi(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, my_permissions.ObjOwner]
-    pass

@@ -2,8 +2,6 @@ from rest_framework import serializers
 from .models import Mesage
 
 
-# ===========================  Message section
-
 class CreateMessageSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     title = serializers.CharField(required=True, max_length=200)
@@ -47,6 +45,13 @@ class ListMessageSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
     html = serializers.SerializerMethodField()
 
+    def get_html(self, obj):
+        return obj.get_markdown()
+
+    def get_author(self, obj):
+        # author = serializers.SerializerMethodField()
+        return str(obj.author.username)
+
     class Meta:
         model = Mesage
         fields = (
@@ -59,15 +64,3 @@ class ListMessageSerializer(serializers.ModelSerializer):
             'html',
             'status',
         )
-
-    def get_html(self, obj):
-        return obj.get_markdown()
-
-    def get_author(self, obj):
-        # author = serializers.SerializerMethodField()
-        return str(obj.author.username)
-
-
-
-
-

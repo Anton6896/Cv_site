@@ -2,24 +2,41 @@ from rest_framework.generics import (
     CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 )
 from rest_framework import permissions
-from accounts.my_permissions import IsCommettee, IsOwner
+from accounts.my_permissions import IsCommettee, CommentAuthor
 from django.contrib.contenttypes.models import ContentType
 from .models import Comment
+from . import serializers
 
 
-class CommentCreateApi(CreateAPIView):
+class CreateCommentApi(CreateAPIView):
+    serializer_class = serializers.CreateCommentSerializer
     permission_classes = [permissions.IsAuthenticated]
+
     # comment for message or issue
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class ListCommentApi(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializers.ListCommentSerializer
+
+    def get_queryset(self):
+        qs = Comment.objects.all()
+        # can attach here all search data that you like as in message section
+        return qs
+
+
+class DetailCommentApi(RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, CommentAuthor, permissions.IsAdminUser]
+    queryset = Comment.objects.all()
+    serializer_class = serializers.DetailCommentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class ParentCommentCreateApi(CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     # comment for comment
-
-
-class CommentListApi(ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-
-class CommentDetailApi(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwner]

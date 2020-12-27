@@ -28,3 +28,11 @@ class ObjOwner(permissions.BasePermission):
 
         # Write permissions are only allowed to the owner of the snippet. or admin
         return obj.author == request.user or not request.user.is_tenant() or request.user.is_superuser
+
+
+class CommentAuthor(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.user == request.user or not request.user.is_tenant() or request.user.is_superuser
