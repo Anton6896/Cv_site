@@ -9,16 +9,16 @@ from . import serializers
 
 
 class CreateCommentApi(CreateAPIView):
+    # comment for message
     serializer_class = serializers.CreateCommentSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    # comment for message or issue
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
 class ListCommentApi(ListAPIView):
+    # list of all PARENT comments
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.ListCommentSerializer
 
@@ -29,6 +29,7 @@ class ListCommentApi(ListAPIView):
 
 
 class DetailCommentApi(RetrieveUpdateDestroyAPIView):
+    # edit / delete comment
     permission_classes = [permissions.IsAuthenticated, CommentAuthor, permissions.IsAdminUser]
     queryset = Comment.objects.all()
     serializer_class = serializers.DetailCommentSerializer
@@ -37,6 +38,13 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
         serializer.save(user=self.request.user)
 
 
-class ParentCommentCreateApi(CreateAPIView):
+class ChildCommentCreateApi(CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     # comment for comment
+
+
+class ChildListCreateApi(CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

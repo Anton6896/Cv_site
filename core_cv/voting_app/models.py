@@ -21,11 +21,17 @@ class Voting(models.Model):
     def get_absolute_url(self):
         return reverse('voting', kwargs={'pk': self.pk})
 
+    class Meta:
+        verbose_name = "voting"
+        db_table = 'voting'
+        verbose_name_plural = "voting_s"
+
 
 class VotingChoices(models.Model):
     class Meta:
-        verbose_name = "votingchoses"
-        
+        verbose_name = "voting_choice"
+        db_table = 'voting_choice'
+        verbose_name_plural = 'voting_choices'
 
     voting = models.ForeignKey(Voting, on_delete=models.CASCADE, related_name='voting_class')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vote_user')
@@ -55,4 +61,3 @@ class VotingChoices(models.Model):
         else:
             v.counter_neutral += 1
             v.save()
-

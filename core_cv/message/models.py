@@ -95,9 +95,6 @@ class Mesage(models.Model):
         md = markdown.Markdown()
         return md.convert(self.content)
 
-    class Meta:
-        ordering = ["-timestamp", "-created_at"]
-
     def __str__(self):
         if self.is_issue():
             return f'issue: {self.pk}, title: {self.title}, \tby: {self.author.username}'
@@ -119,3 +116,9 @@ class Mesage(models.Model):
            }
            """
         return ContentType.objects.get_for_model(self.__class__)
+
+    class Meta:
+        ordering = ["-timestamp", "-created_at"]
+        db_table = 'messages'
+        verbose_name = 'message'
+        verbose_name_plural = 'messages'

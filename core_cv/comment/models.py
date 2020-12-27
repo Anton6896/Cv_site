@@ -55,3 +55,9 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+        db_table = 'comments'
+        verbose_name = 'comment'
+        verbose_name_plural = 'comments'
+
+
+

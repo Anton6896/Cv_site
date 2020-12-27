@@ -9,7 +9,6 @@ class CreateCommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = (
             "user",
-            "parent",
             "content",
             "content_type",
             "object_pk",
@@ -25,6 +24,11 @@ class ListCommentSerializer(serializers.ModelSerializer):
 
     def get_user(self, obj):
         return str(obj.user.username)
+
+    content_type = serializers.SerializerMethodField()
+
+    def get_content_type(self, obj):
+        return str(obj.content_type)
 
     class Meta:
         model = Comment
@@ -42,10 +46,29 @@ class ListCommentSerializer(serializers.ModelSerializer):
 class DetailCommentSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
+    content_type = serializers.SerializerMethodField()
+
+    def get_content_type(self, obj):
+        return str(obj.content_type)
+
     class Meta:
         model = Comment
         fields = (
             'id',
+            "user",
+            "parent",
+            "content",
+            "content_type",
+            "object_pk",
+        )
+
+
+class CreateChildSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Comment
+        fields = (
             "user",
             "parent",
             "content",
