@@ -10,7 +10,12 @@ class CommentManager(models.Manager):
         # instance.__class__  -> return the instance by class for more generic use
         content_type = ContentType.objects.get_for_model(instance.__class__)  # return Message
         obj_id = instance.pk  # return message.pk
-        return super(CommentManager, self).filter(content_type=content_type, object_id=obj_id)
+        return super(CommentManager, self) \
+            .filter(content_type=content_type, object_id=obj_id) \
+            .filter(parent=None)
+
+    def all(self):
+        return super(CommentManager, self).filter(parent=None)
 
 
 class Comment(models.Model):
@@ -36,3 +41,17 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'comment for "{self.content_type}" with id {self.object_pk} , by <{self.user.username}>'
+
+    def children(self):  # replies
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        # if self.parent is not None:
+        #     return False
+        # else:
+        #     return True
+        return self.parent is None
+
+    class Meta:
+        ordering = ['-timestamp']
