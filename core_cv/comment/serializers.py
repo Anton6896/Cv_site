@@ -46,13 +46,11 @@ class ListCommentSerializer(serializers.ModelSerializer):
 
 class DetailCommentSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     content_type = serializers.SerializerMethodField()
+    replies = serializers.SerializerMethodField()
 
     def get_content_type(self, obj):
         return str(obj.content_type)
-
-    replies = serializers.SerializerMethodField()
 
     def get_replies(self, obj):
         if obj.is_parent:
