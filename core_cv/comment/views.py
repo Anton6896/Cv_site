@@ -8,6 +8,8 @@ from .models import Comment
 from . import serializers
 
 
+# =========================   Parent comments
+
 class CreateCommentApi(CreateAPIView):
     # comment for message
     serializer_class = serializers.CreateCommentSerializer
@@ -23,7 +25,7 @@ class ListCommentApi(ListAPIView):
     serializer_class = serializers.ListCommentSerializer
 
     def get_queryset(self):
-        qs = Comment.objects.all()
+        qs = Comment.objects.all()  # all() overridden in model
         # can attach here all search data that you like as in message section
         return qs
 
@@ -38,13 +40,16 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
         serializer.save(user=self.request.user)
 
 
-class ChildCommentCreateApi(CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    # comment for comment
+# =========================   Children comments
 
-
-class ChildListCreateApi(CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+# class ChildCommentCreateApi(CreateAPIView):
+#     # comment for comment
+#     permission_classes = [permissions.IsAuthenticated]
+#     serializer_class = serializers.CreateChildSerializer
+#
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
+#
+#
+# class ChildListCreateApi(CreateAPIView):
+#     permission_classes = [permissions.IsAuthenticated]

@@ -40,7 +40,7 @@ class Comment(models.Model):
     content_object = GenericForeignKey('content_type', 'object_pk')
 
     def __str__(self):
-        return f'comment for "{self.content_type}" with id {self.object_pk} , by <{self.user.username}>'
+        return f'id {self.id} :: comment for "{self.content_type}" with id {self.object_pk} , by <{self.user.username}>'
 
     def children(self):  # replies
         return Comment.objects.filter(parent=self)
