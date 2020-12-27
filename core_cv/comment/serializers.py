@@ -22,26 +22,33 @@ class ListCommentSerializer(serializers.ModelSerializer):
         lookup_field='pk'
     )
     user = serializers.SerializerMethodField()
-
-    def get_user(self, obj):
-        return str(obj.user.username)
-
     content_type = serializers.SerializerMethodField()
-
-    def get_content_type(self, obj):
-        return str(obj.content_type)
+    replies_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = (
             'detail_url',
+            'replies_count',
             'id',
+            'parent',
             "user",
-            "parent",
+            "timestamp",
             "content",
-            "content_type",
             "object_pk",
+            "content_type",
         )
+
+    def get_user(self, obj):
+        return str(obj.user.username)
+
+    def get_content_type(self, obj):
+        return str(obj.content_type)
+
+    def get_replies_count(self, obj):
+        if obj.is_parent:
+            return obj.is_child.count()
+        return 0
 
 
 class DetailCommentSerializer(serializers.ModelSerializer):
@@ -54,7 +61,7 @@ class DetailCommentSerializer(serializers.ModelSerializer):
 
     def get_replies(self, obj):
         if obj.is_parent:
-            return ChildCommentSerializer(obj.children(), many=True).data
+            return ChildCommentSerializer(obj.is_child, many=True).data
         else:
             return None
 
@@ -78,5 +85,4 @@ class ChildCommentSerializer(serializers.ModelSerializer):
             'id',
             "content",
             'timestamp',
-
         )

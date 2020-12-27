@@ -11,7 +11,7 @@ class CommentManager(models.Manager):
         content_type = ContentType.objects.get_for_model(instance.__class__)  # return Message
         obj_id = instance.pk  # return message.pk
         return super(CommentManager, self) \
-            .filter(content_type=content_type, object_id=obj_id) \
+            .filter(content_type=content_type, object_pk=obj_id) \
             .filter(parent=None)
 
     def all(self):
@@ -43,15 +43,13 @@ class Comment(models.Model):
         return f'id {self.id} :: comment for "{self.content_type}" ' \
                f'with id {self.object_pk} , by <{self.user.username}>'
 
-    def children(self):  # replies
+    @property
+    def is_child(self):  # replies
+        # check if obj parent != None
         return Comment.objects.filter(parent=self)
 
     @property
     def is_parent(self):
-        # if self.parent is not None:
-        #     return False
-        # else:
-        #     return True
         return self.parent is None
 
     class Meta:
