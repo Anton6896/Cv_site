@@ -4,6 +4,7 @@ from PIL import Image
 from django.utils import timezone
 import markdown
 from comment.models import Comment
+from django.contrib.contenttypes.models import ContentType
 
 
 # todo create the schedule task that check if Message (issue tag)
@@ -107,3 +108,14 @@ class Mesage(models.Model):
     def comments(self):
         # now message.comments  -> all comments for this message as queryset
         return Comment.objects.filter_by_instance(self)
+
+    @property
+    def get_content_type(self):
+        """
+           instance = get_object_ot_404(Message)
+           {
+               "content_type":instance.get_content_type,
+               etc ...
+           }
+           """
+        return ContentType.objects.get_for_model(self.__class__)
