@@ -37,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # apps
+    # local
     'accounts.apps.AccountsConfig',
     'voting_app.apps.VotingAppConfig',
-    'crispy_forms',
+    'message.apps.MessageConfig',
+    'comment.apps.CommentConfig',
 
-    # api
+    # foreign
+    'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
@@ -68,6 +70,8 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'accounts/templates'),
+            os.path.join(BASE_DIR, 'message/templates'),
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -143,10 +147,10 @@ LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'uni_form'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+# api framework config
 REST_FRAMEWORK = {
 
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M",
-
 
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -160,6 +164,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 
-    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+
 }

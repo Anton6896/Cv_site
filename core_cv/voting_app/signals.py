@@ -1,4 +1,3 @@
-from accounts.models import CustomUser
 from .models import Voting, VotingChoices
 from django.db.models.signals import post_save
 from django.dispatch import receiver

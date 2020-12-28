@@ -1,9 +1,23 @@
 from rest_framework import permissions
 
 
-class IsOwnerOrCommettee(permissions.BasePermission):
+class IsOwner(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.author == request.user or not request.user.is_tenant() or request.user.is_superuser
+
+
+class IsCommettee(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return not request.user.is_tenant()
+
+
+class ObjOwner(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.
+    for message app use
     """
 
     def has_object_permission(self, request, view, obj):
@@ -13,14 +27,12 @@ class IsOwnerOrCommettee(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the snippet. or admin
+        return obj.author == request.user or not request.user.is_tenant() or request.user.is_superuser
+
+
+class CommentAuthor(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
         return obj.user == request.user or not request.user.is_tenant() or request.user.is_superuser
-
-
-class IsCommittee(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return not request.user.is_tenant()
-
-
-class UpdateTenant(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return not request.user.is_tenant()

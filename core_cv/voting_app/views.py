@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from . import models
 from . import serializers
-from accounts import my_permissions
+from accounts.my_permissions import IsCommettee, IsOwner
 from rest_framework import generics, permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import mixins, views
@@ -19,7 +19,8 @@ class CreateVotingApi(generics.CreateAPIView):
     '''
     serializer_class = serializers.VotingSerializerApi
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommittee]
+        permissions.IsAuthenticated, IsCommettee
+    ]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -29,7 +30,8 @@ class UpdateVotingApi(generics.RetrieveUpdateDestroyAPIView):
     # update existing voting data , look by pk
     serializer_class = serializers.UpdateVotingSerializerApi
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommittee]
+        permissions.IsAuthenticated, IsCommettee, IsOwner
+    ]
     queryset = models.Voting.objects.filter(is_active=True).all()
 
 
@@ -103,4 +105,3 @@ class VotingPost(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
