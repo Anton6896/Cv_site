@@ -40,7 +40,7 @@ class Comment(models.Model):
     content_object = GenericForeignKey('content_type', 'object_pk')
 
     def __str__(self):
-        return f'id {self.id} :: comment for "{self.content_type}" ' \
+        return f'pk {self.pk} :: comment for "{self.content_type}" ' \
                f'with id {self.object_pk} , by <{self.user.username}>'
 
     @property

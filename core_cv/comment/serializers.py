@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Comment
+from django.contrib.contenttypes.models import ContentType
 
 
 class CreateCommentSerializer(serializers.ModelSerializer):
@@ -86,3 +87,39 @@ class ChildCommentSerializer(serializers.ModelSerializer):
             "content",
             'timestamp',
         )
+
+
+def comment_create_serializer_api(model_type='message', pk=None, parent_pk=None):
+    class MyCommentSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Comment
+            fields = (
+                'pk',
+                'parent',
+                'content',
+            )
+
+        def __init__(self, *args, **kwargs):
+            self.model_type = model_type
+            self.pk = pk
+            self.parent_obj = None
+            if parent_pk:
+                # double check if have an parent , if so assign to parent_obj
+                qs = Comment.objects.filter(pk=parent_pk)
+                if qs.exists():
+                    self.parent_obj = qs.first()
+            return super(MyCommentSerializer, self).__init__(*args, **kwargs)
+
+        def validate(self, data):
+            # because of working with the generic type of classes
+            # must have an validation checks
+            model_qs = ContentType.objects.filter(model=self.model_type)
+            if not model_qs.exists():
+                raise serializers.ValidationError('PROBLEM -> with model_qs in validation ...')
+            ObjModel = model_qs.first().model_class()
+            obj_qs = ObjModel.objects.filter(pk=self.pk)
+            if not obj_qs.exist():
+                raise serializers.ValidationError('PROBLEM -> obj_qs in validation ...')
+            return data
+
+    return MyCommentSerializer
