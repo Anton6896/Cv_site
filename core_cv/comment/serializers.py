@@ -89,7 +89,15 @@ class ChildCommentSerializer(serializers.ModelSerializer):
         )
 
 
-def comment_create_serializer_api(model_type='message', pk=None, parent_pk=None):
+from accounts.models import CustomUser as User
+
+
+def comment_create_serializer(model_type='message', pk=None, parent_pk=None):
+    """
+    this serializer function must have an special CommentManager (models.py) function to handle it
+
+    """
+
     class MyCommentSerializer(serializers.ModelSerializer):
         class Meta:
             model = Comment
@@ -125,7 +133,14 @@ def comment_create_serializer_api(model_type='message', pk=None, parent_pk=None)
                 raise serializers.ValidationError('PROBLEM -> obj_qs in validation ...')
             return data
 
-
-
+        def create(self, validated_data):
+            comment = Comment.objects.create_by_model_type(
+                model_type=self.model_type,
+                pk=self.pk,
+                content=validated_data.get("content"),
+                user=User,
+                parent_obj=self.parent_obj
+            )
+            return comment
 
     return MyCommentSerializer
