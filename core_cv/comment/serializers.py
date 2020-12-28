@@ -89,10 +89,7 @@ class ChildCommentSerializer(serializers.ModelSerializer):
         )
 
 
-from accounts.models import CustomUser as User
-
-
-def comment_create_serializer(model_type='message', pk=None, parent_pk=None):
+def comment_create_serializer(model_type='message', pk=None, parent_pk=None, user=None):
     """
     this serializer function must have an special CommentManager (models.py) function to handle it
 
@@ -103,7 +100,6 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None):
             model = Comment
             fields = (
                 'pk',
-                'parent',
                 'content',
             )
 
@@ -124,13 +120,15 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None):
             # must have an validation checks,
             # model if exist at all and check if in this model we have an instance with requeued pk 
             """
+
             model_qs = ContentType.objects.filter(model=self.model_type)
             if not model_qs.exists():
-                raise serializers.ValidationError('PROBLEM -> with model_qs in validation ...')
+                print(ContentType.objects.all())
+                raise serializers.ValidationError('PROBLEM -> with model_qs in validation ... cant find model ')
             obj_model = model_qs.first().model_class()
             obj_qs = obj_model.objects.filter(pk=self.pk)
-            if not obj_qs.exist():
-                raise serializers.ValidationError('PROBLEM -> obj_qs in validation ...')
+            if not obj_qs.exists():
+                raise serializers.ValidationError('PROBLEM -> obj_qs in validation ... cant find object ')
             return data
 
         def create(self, validated_data):
@@ -138,7 +136,7 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None):
                 model_type=self.model_type,
                 pk=self.pk,
                 content=validated_data.get("content"),
-                user=User,
+                user=user,
                 parent_obj=self.parent_obj
             )
             return comment

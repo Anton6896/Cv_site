@@ -40,16 +40,20 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
         serializer.save(user=self.request.user)
 
 
-# =========================   Children comments
+class CreateFunctionComment(CreateAPIView):
+    queryset = Comment.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
-# class ChildCommentCreateApi(CreateAPIView):
-#     # comment for comment
-#     permission_classes = [permissions.IsAuthenticated]
-#     serializer_class = serializers.CreateChildSerializer
-#
-#     def perform_create(self, serializer):
-#         serializer.save(user=self.request.user)
-#
-#
-# class ChildListCreateApi(CreateAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
+    def get_serializer_class(self):
+        # POST /api/comment_function_create/?type=mesage&pk=12
+        # POST /api/comment_function_create/?type=mesage&pk=12&parent_pk=36
+        model_type = self.request.GET.get('type')
+        pk = self.request.GET.get('pk')
+        parent_pk = self.request.GET.get('parent_pk', None)
+
+        return serializers.comment_create_serializer(
+            model_type=model_type,
+            pk=pk,
+            parent_pk=parent_pk,
+            user=self.request.user
+        )

@@ -19,7 +19,7 @@ class CommentManager(models.Manager):
 
     def create_by_model_type(self, model_type, pk, content, user, parent_obj=None):
         model_qs = ContentType.objects.filter(model=model_type)
-        if model_qs.exist():
+        if model_qs.exists():
             some_model = model_qs.first().model_class()  # message / comment / obj
             obj_qs = some_model.objects.filter(pk=pk)  # get -> message.pk == pk   /obj
 

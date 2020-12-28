@@ -67,6 +67,7 @@ class ListMessageSerializer(serializers.ModelSerializer):
     )
     author = serializers.SerializerMethodField()
     html = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Mesage
@@ -80,7 +81,7 @@ class ListMessageSerializer(serializers.ModelSerializer):
             'priority',
             'html',
             'status',
-
+            "comments_count",
         )
 
     def get_html(self, obj):
@@ -89,3 +90,7 @@ class ListMessageSerializer(serializers.ModelSerializer):
     def get_author(self, obj):
         # author = serializers.SerializerMethodField()
         return str(obj.author.username)
+
+    def get_comments_count(self, obj):
+        sum = Comment.objects.filter(object_pk=obj.pk).count()
+        return sum
