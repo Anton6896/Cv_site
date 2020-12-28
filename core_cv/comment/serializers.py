@@ -119,8 +119,8 @@ def comment_create_serializer_api(model_type='message', pk=None, parent_pk=None)
             model_qs = ContentType.objects.filter(model=self.model_type)
             if not model_qs.exists():
                 raise serializers.ValidationError('PROBLEM -> with model_qs in validation ...')
-            ObjModel = model_qs.first().model_class()
-            obj_qs = ObjModel.objects.filter(pk=self.pk)
+            obj_model = model_qs.first().model_class()
+            obj_qs = obj_model.objects.filter(pk=self.pk)
             if not obj_qs.exist():
                 raise serializers.ValidationError('PROBLEM -> obj_qs in validation ...')
             return data
