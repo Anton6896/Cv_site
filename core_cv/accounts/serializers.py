@@ -13,8 +13,15 @@ class CommitteeSerializer(serializers.ModelSerializer):
         fields = ('pk', 'username', 'password', 'email',
                   'building_community_name', 'full_address')
         extra_kwargs = {
-            'password': {'wright_only': True}
+            'password': {'write_only': True}
         }
+
+    def validate(self, data):
+        email = data['email']
+        qs = user.objects.filter(email=email)
+        if qs:
+            raise serializers.ValidationError('this email is already exists')
+        return data
 
     def create(self, validated_data):
         validated_data['password'] = make_password(
