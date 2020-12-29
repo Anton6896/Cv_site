@@ -124,11 +124,13 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None, use
             model_qs = ContentType.objects.filter(model=self.model_type)
             if not model_qs.exists():
                 print(ContentType.objects.all())
-                raise serializers.ValidationError('PROBLEM -> with model_qs in validation ... cant find model ')
+                raise serializers.ValidationError(
+                    'PROBLEM -> with model_qs in validation ... cant find model ')
             obj_model = model_qs.first().model_class()
             obj_qs = obj_model.objects.filter(pk=self.pk)
             if not obj_qs.exists():
-                raise serializers.ValidationError('PROBLEM -> obj_qs in validation ... cant find object ')
+                raise serializers.ValidationError(
+                    'PROBLEM -> obj_qs in validation ... cant find object ')
             return data
 
         def create(self, validated_data):
@@ -142,3 +144,16 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None, use
             return comment
 
     return MyCommentSerializer
+
+
+class CommentDetailOtherSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = (
+            'pk',
+            'user',
+            'content',
+            'timestamp',
+
+        )

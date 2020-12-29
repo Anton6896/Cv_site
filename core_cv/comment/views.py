@@ -1,6 +1,7 @@
 from rest_framework.generics import (
-    CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+    CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework import permissions
 from accounts.my_permissions import IsCommettee, CommentAuthor
 from django.contrib.contenttypes.models import ContentType
@@ -8,13 +9,11 @@ from .models import Comment
 from . import serializers
 
 
-
-# =========================   
+# =========================
 """
 in this way have no checking GenericForeignKey for calidation 
 if any of models that refers to is exists at all 
 """
-
 
 
 class CreateCommentApi(CreateAPIView):
@@ -39,7 +38,8 @@ class ListCommentApi(ListAPIView):
 
 class DetailCommentApi(RetrieveUpdateDestroyAPIView):
     # edit / delete comment
-    permission_classes = [permissions.IsAuthenticated, CommentAuthor, permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated,
+                          CommentAuthor, permissions.IsAdminUser]
     queryset = Comment.objects.all()
     serializer_class = serializers.DetailCommentSerializer
 
@@ -47,7 +47,7 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
         serializer.save(user=self.request.user)
 
 
-# =========================   OTHER WAY 
+# =========================   OTHER WAY
 
 """
 more proper way with validation in serializer class ! 
@@ -73,5 +73,9 @@ class CreateFunctionComment(CreateAPIView):
         )
 
 
+# working with mixins for edit delete
 
-
+class DetailCommentOther(RetrieveAPIView):
+    # the all() method return only parrent comments
+    queryset = Comment.objects.filter(pk__gte=0)
+    serializer_class = serializers.CommentDetailOtherSerializer
