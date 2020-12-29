@@ -10,8 +10,11 @@ class CommitteeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = user
-        fields = ('pk','username', 'password', 'email',
+        fields = ('pk', 'username', 'password', 'email',
                   'building_community_name', 'full_address')
+        extra_kwargs = {
+            'password': {'wright_only': True}
+        }
 
     def create(self, validated_data):
         validated_data['password'] = make_password(
@@ -25,6 +28,9 @@ class TenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = user
         fields = ('pk', 'username', 'password', 'email', 'apartment')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
     def create(self, validated_data):
         validated_data['password'] = make_password(
@@ -35,4 +41,4 @@ class TenantSerializer(serializers.ModelSerializer):
 class ListTenantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = user
-        fields = ('pk','username', 'email', 'apartment', 'role', 'pk')
+        fields = ('pk', 'username', 'email', 'apartment', 'role', 'pk')

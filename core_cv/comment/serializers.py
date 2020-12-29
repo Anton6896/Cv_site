@@ -193,6 +193,6 @@ class CommentDetailOtherSerializer(serializers.ModelSerializer):
 
     def get_replies(self, obj):
         if obj.is_parent:
-            return ChildCommentSerializer(obj.is_child, many=True).data
+            return ChildCommentSerializer(obj.is_child, many=True, context=self.context).data
         else:
             return None
