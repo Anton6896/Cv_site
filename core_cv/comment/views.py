@@ -11,8 +11,8 @@ from . import serializers
 
 # =========================
 """
-in this way have no checking GenericForeignKey for calidation 
-if any of models that refers to is exists at all 
+in this way have no checking GenericForeignKey for calidation
+if any of models that refers to is exists at all
 """
 
 
@@ -50,7 +50,7 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
 # =========================   OTHER WAY
 
 """
-more proper way with validation in serializer class ! 
+more proper way with validation in serializer class !
 """
 
 
@@ -75,7 +75,17 @@ class CreateFunctionComment(CreateAPIView):
 
 # working with mixins for edit delete
 
-class DetailCommentOther(RetrieveAPIView):
+class DetailCommentOther(RetrieveAPIView, DestroyModelMixin, UpdateModelMixin):
     # the all() method return only parrent comments
+    permission_classes = [permissions.IsAuthenticated,
+                          CommentAuthor, permissions.IsAdminUser]
     queryset = Comment.objects.filter(pk__gte=0)
     serializer_class = serializers.CommentDetailOtherSerializer
+
+    # UpdateModelMixin
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    # DestroyModelMixin
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

@@ -118,7 +118,7 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None, use
             """
             # because of working with the generic type of classes
             # must have an validation checks,
-            # model if exist at all and check if in this model we have an instance with requeued pk 
+            # model if exist at all and check if in this model we have an instance with requeued pk
             """
 
             model_qs = ContentType.objects.filter(model=self.model_type)
@@ -147,6 +147,8 @@ def comment_create_serializer(model_type='message', pk=None, parent_pk=None, use
 
 
 class CommentDetailOtherSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    replies = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
@@ -155,5 +157,24 @@ class CommentDetailOtherSerializer(serializers.ModelSerializer):
             'user',
             'content',
             'timestamp',
+            'parent',
+            'replies',
+
 
         )
+        read_only_fields = (
+            'pk',
+            'user',
+            'timestamp',
+            'parent',
+    
+        )
+
+    def get_user(self, obj):
+        return str(obj.user.username)
+
+    def get_replies(self, obj):
+        if obj.is_parent:
+            return ChildCommentSerializer(obj.is_child, many=True).data
+        else:
+            return None
