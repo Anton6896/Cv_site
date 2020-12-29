@@ -53,7 +53,7 @@
                     </li>
 
                     {% if user.is_superuser %}
-                        <li><a href="http://127.0.0.1:8000/admin/" style="color: red">Admin</a></li>
+                        <li><a href="{% url 'admin:index' %}" style="color: red">Admin</a></li>
                     {% endif %}
                     {% if user.is_authenticated %}
                         <li><a href="#">My Profile</a></li>
