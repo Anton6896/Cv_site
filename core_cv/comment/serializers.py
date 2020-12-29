@@ -57,37 +57,55 @@ class DetailCommentSerializer(serializers.ModelSerializer):
     content_type = serializers.SerializerMethodField()
     replies = serializers.SerializerMethodField()
 
-    def get_content_type(self, obj):
-        return str(obj.content_type)
-
-    def get_replies(self, obj):
-        if obj.is_parent:
-            return ChildCommentSerializer(obj.is_child, many=True).data
-        else:
-            return None
-
     class Meta:
         model = Comment
         fields = (
-            'id',
+            'pk',
             "user",
             "parent",
             "content",
             "content_type",
             "object_pk",
             'replies',
+
         )
+
+        read_only_fields = (
+            'pk',
+            'user',
+            'timestamp',
+            'parent',
+            "object_pk",
+            "content_type",
+        )
+
+    def get_content_type(self, obj):
+        return str(obj.content_type)
+
+    def get_replies(self, obj):
+        if obj.is_parent:
+            return ChildCommentSerializer(obj.is_child, many=True, context=self.context).data
+        else:
+            return None
 
 
 class ChildCommentSerializer(serializers.ModelSerializer):
+    detail_url = serializers.HyperlinkedIdentityField(
+        view_name='comments:detail',
+        lookup_field='pk'
+    )
+
     class Meta:
         model = Comment
         fields = (
-            'id',
+            'pk',
             "content",
             'timestamp',
+            'detail_url'
         )
 
+
+# ======
 
 def comment_create_serializer(model_type='message', pk=None, parent_pk=None, user=None):
     """
@@ -167,7 +185,7 @@ class CommentDetailOtherSerializer(serializers.ModelSerializer):
             'user',
             'timestamp',
             'parent',
-    
+
         )
 
     def get_user(self, obj):

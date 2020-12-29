@@ -40,7 +40,10 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
     # edit / delete comment
     permission_classes = [permissions.IsAuthenticated,
                           CommentAuthor, permissions.IsAdminUser]
-    queryset = Comment.objects.all()
+    # with this query set cant se the child option to edit it !
+    # all() was overtired
+    # queryset = Comment.objects.all()
+    queryset = Comment.objects.filter(pk__gte=0)
     serializer_class = serializers.DetailCommentSerializer
 
     def perform_create(self, serializer):
