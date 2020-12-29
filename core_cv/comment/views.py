@@ -8,7 +8,14 @@ from .models import Comment
 from . import serializers
 
 
-# =========================   Parent comments
+
+# =========================   
+"""
+in this way have no checking GenericForeignKey for calidation 
+if any of models that refers to is exists at all 
+"""
+
+
 
 class CreateCommentApi(CreateAPIView):
     # comment for message
@@ -40,6 +47,13 @@ class DetailCommentApi(RetrieveUpdateDestroyAPIView):
         serializer.save(user=self.request.user)
 
 
+# =========================   OTHER WAY 
+
+"""
+more proper way with validation in serializer class ! 
+"""
+
+
 class CreateFunctionComment(CreateAPIView):
     queryset = Comment.objects.all()
     permission_classes = [permissions.IsAuthenticated]
@@ -57,5 +71,7 @@ class CreateFunctionComment(CreateAPIView):
             parent_pk=parent_pk,
             user=self.request.user
         )
+
+
 
 
