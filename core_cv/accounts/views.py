@@ -63,7 +63,7 @@ class UpdateProfileView(UpdateView):
 #  api views            ====================================================================
 
 class CommitteeUserCreationView(generics.CreateAPIView):
-    # ! post_save add it to the group -> 'committee_group' for granting permissions #
+    # ! post_save add user to the group -> 'committee_group' for granting permissions #
     serializer_class = serializers.CommitteeSerializer
     permission_classes = [permissions.AllowAny]
 
