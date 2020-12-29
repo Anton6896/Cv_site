@@ -10,6 +10,6 @@ urlpatterns = [
     path('api/user_un_vote_detail/', my_view.AllUserUnVoteList.as_view()),
     path('api/list_active_voting/', my_view.ListActiveVoting.as_view()),
     path('api/list_un_active_voting/', my_view.ListUnActiveVoting.as_view()),
-    path('api/update_voting/<int:pk>/', my_view.UpdateVotingApi.as_view()),
+    path('api/update_voting/<int:pk>/', my_view.UpdateVotingApi.as_view(), name='detail'),
     # path('api/list_voting/', my_view.ListVotingWithChoices.as_view()),
 ]
