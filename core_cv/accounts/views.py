@@ -99,5 +99,5 @@ class TenantDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ListTenantsSerializer
     queryset = user.objects.filter(role='tenant').all()
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommettee, my_permissions.IsOwner
+        permissions.IsAuthenticated, my_permissions.IsCommettee
     ]
