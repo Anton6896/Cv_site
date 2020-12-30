@@ -4,8 +4,9 @@ from . import models
 
 class VotingSerializerApi(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     detail_url = serializers.HyperlinkedIdentityField(
-        view_name='messages:detail',
+        view_name='voting_app:detail',
         lookup_field='pk'
     )
 
