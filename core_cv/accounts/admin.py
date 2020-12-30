@@ -7,9 +7,9 @@ from .forms import SighUpForm
 class CustomUserAdmin(UserAdmin):
     add_form = SighUpForm
     model = CustomUser
-    list_display = ['email', 'username', 'role']
+    list_display = ['pk', 'email', 'username', 'role']
     list_filter = ('role',)
-    list_display_links = ['email', 'username', ]
+    list_display_links = ['pk','email', 'username', ]
 
     fieldsets = (
         *UserAdmin.fieldsets,  # original form fieldsets, expanded

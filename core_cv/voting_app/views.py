@@ -30,7 +30,7 @@ class UpdateVotingApi(generics.RetrieveUpdateDestroyAPIView):
     # update existing voting data , look by pk
     serializer_class = serializers.UpdateVotingSerializerApi
     permission_classes = [
-        permissions.IsAuthenticated, IsCommettee, IsOwner
+        permissions.IsAuthenticated, IsCommettee
     ]
     queryset = models.Voting.objects.filter(is_active=True).all()
 

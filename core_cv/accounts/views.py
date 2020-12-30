@@ -9,7 +9,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
 
+user = get_user_model()
 
 # regular html view     ====================================================================
 class HomeView(View):
@@ -63,7 +65,7 @@ class UpdateProfileView(UpdateView):
 #  api views            ====================================================================
 
 class CommitteeUserCreationView(generics.CreateAPIView):
-    # ! post_save add it to the group -> 'committee_group' for granting permissions #
+    # ! post_save add user to the group -> 'committee_group' for granting permissions #
     serializer_class = serializers.CommitteeSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -74,7 +76,7 @@ class CommitteeUserCreationView(generics.CreateAPIView):
 class TenantUserCreationView(generics.CreateAPIView):
     serializer_class = serializers.TenantSerializer
     # must have this for user identity search
-    queryset = models.CustomUser.objects.all()
+    queryset = user.objects.all()
 
     permission_classes = [
         permissions.IsAuthenticated, my_permissions.IsCommettee
@@ -86,7 +88,7 @@ class TenantUserCreationView(generics.CreateAPIView):
 
 class TenantsListView(generics.ListAPIView):
     serializer_class = serializers.ListTenantsSerializer
-    queryset = models.CustomUser.objects.filter(role='tenant').all()
+    queryset = user.objects.filter(role='tenant').all()
 
     permission_classes = [
         permissions.IsAuthenticated, my_permissions.IsCommettee
@@ -95,7 +97,7 @@ class TenantsListView(generics.ListAPIView):
 
 class TenantDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ListTenantsSerializer
-    queryset = models.CustomUser.objects.filter(role='tenant').all()
+    queryset = user.objects.filter(role='tenant').all()
     permission_classes = [
-        permissions.IsAuthenticated, my_permissions.IsCommettee, my_permissions.IsOwner
+        permissions.IsAuthenticated, my_permissions.IsCommettee
     ]
