@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'voting_app.apps.VotingAppConfig',
     'message.apps.MessageConfig',
+    'blog.apps.BlogConfig',
     'comment.apps.CommentConfig',
 
     # foreign
@@ -71,6 +72,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'accounts/templates'),
             os.path.join(BASE_DIR, 'message/templates'),
+            os.path.join(BASE_DIR, 'blog/templates'),
 
         ],
         'APP_DIRS': True,
