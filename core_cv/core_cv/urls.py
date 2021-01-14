@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('voting_app.urls', namespace='voting')),
     path('', include('message.urls', namespace='messages')),
     path('', include('comment.urls', namespace='comments')),
-    path('blog/', include('blog.urls', namespace='blog')),
+    path('', include('blog.urls', namespace='blog')),
 
     # api
     path('api-auth/', include('rest_framework.urls')),

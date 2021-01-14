@@ -26,9 +26,8 @@ class Blog(models.Model):
                               upload_to=customer_image_file_path)
     created_at = models.DateTimeField(default=timezone.now)
 
-    
+    # image resize
 
-    # image resize 
     def save(self, *args, **kwargs):
         super(Blog, self).save(*args, **kwargs)
 
@@ -42,14 +41,20 @@ class Blog(models.Model):
         except IOError:
             print(f'where is the file for img working ?')
 
-
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse("blog:detail", kwargs={"pk": self.pk})
-
+        return reverse("blog:blog_detail", kwargs={"pk": self.pk})
 
     class Meta:
         ordering = ["-created_at", ]
         db_table = 'blog'
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
+
+
+# class BlogComment(models.Model):
+#     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+#     content = models.TextField()
+#     created_at = models.DateTimeField(default=timezone.now)

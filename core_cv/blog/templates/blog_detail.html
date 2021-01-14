@@ -1,0 +1,146 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+<section class="blog">
+    <div class="container">
+        <div class="row">
+
+            <!-- Blog Content -->
+            <div class="col-md-8 mr-auto">
+
+                <div class="blog-post">
+
+                    <div class="carousel mt20 mb20">
+                        <div><img src="img/blog/1.jpg" class="img-responsive width100" alt="#"></div>
+                        <div><img src="img/blog/2.jpg" class="img-responsive width100" alt="#"></div>
+                        <div><img src="img/blog/3.jpg" class="img-responsive width100" alt="#"></div>
+                    </div>
+
+                    <div class="post-header">
+                        <h5><span>In</span> <strong><a href="#" class="color">Lifestyle</a></strong></h5>
+                        <a class="link-to-post" href="#">
+                            <h3><strong>{{ blog.title }}</strong></h3>
+                        </a>
+                    </div>
+
+                    <p>{{ blog.content }}</p>
+
+                    <div class="post-tags">
+                        <a href="#" rel="tag">Forest</a>
+                        <a href="#" rel="tag">Northwest</a>
+                        <a href="#" rel="tag">Ocean</a>
+                        <a href="#" rel="tag">Travel</a>
+                    </div>
+
+                    <div class="post-share">
+                        <a href="#"><i class="ion-social-facebook"></i> <span>Share</span></a>
+                        <a href="#"><i class="ion-social-twitter"></i> <span>Tweet</span></a>
+                        <a href="#"><i class="ion-social-pinterest"></i> <span>Pin it</span></a>
+                        <a href="#"><i class="ion-social-googleplus"></i></a>
+                    </div>
+
+                </div>
+
+
+                <!-- Comments -->
+                <h5 class="comment-number"><strong>3 Comments:</strong></h5>
+                <ul class="vos-comments">
+
+                    <li class="post-comment">
+                        <div class="comment-content">
+                            <a href="#" class="avatar"><img src="img/blog/avatar-1.jpg" alt="#"></a>
+                            <div class="post-body">
+                                <div class="comment-header">
+                                    <span class="author"><a href="#">Carolyn Bell</a></span>
+                                    <span class="time-ago"><a href="#">22 days ago</a></span>
+                                </div>
+                                <div class="post-message">
+                                    <p>Ius te placerat probatus consequuntur, eirmod nonumes conclusionemque ne mel. Mei
+                                        ex posse corpora posidonium, mollis vocent mediocritatem ea mea.</p>
+                                </div>
+                                <div class="comment-footer">
+                                    <span class="reply"><a href="#"><i class="ion-reply"></i> Reply</a></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="reply-comment">
+                            <li class="post-comment">
+                                <div class="comment-content">
+                                    <a href="#" class="avatar"><img src="img/blog/avatar-2.jpg" alt="#"></a>
+                                    <div class="post-body">
+                                        <div class="comment-header">
+                                            <span class="author"><a href="#">Kati Adams</a></span>
+                                            <span class="time-ago"><a href="#">a month ago</a></span>
+                                        </div>
+                                        <div class="post-message">
+                                            <p>Labore nusquam postulant ad pro, sit ea movet gubergren.</p>
+                                        </div>
+                                        <div class="comment-footer">
+                                            <span class="reply"><a href="#"><i class="ion-reply"></i> Reply</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li class="post-comment">
+                        <div class="comment-content">
+                            <a href="#" class="avatar"><img src="img/blog/avatar-3.jpg" alt="#"></a>
+                            <div class="post-body">
+                                <div class="comment-header">
+                                    <span class="author"><a href="#">Steve Pitts</a></span>
+                                    <span class="time-ago"><a href="#">2 months ago</a></span>
+                                </div>
+                                <div class="post-message">
+                                    <p>These photos are great, I love the crisp finish they have on them, they look
+                                        incredible!<br>The new Liverty store sounds great :)</p>
+                                </div>
+                                <div class="comment-footer">
+                                    <span class="reply"><a href="#"><i class="ion-reply"></i> Reply</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="form-leave-comment">
+                    <h5><strong>Leave Comment</strong></h5>
+                    <form>
+                        <div class="col-sm-6">
+                            <input placeholder="Your Name *" />
+                        </div>
+                        <div class="col-sm-6">
+                            <input placeholder="Your Email *" />
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea placeholder="Your Comment *"></textarea>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <input type="submit" class="submit btn btn-lg btn-primary" id="submit"
+                                value="Submit Comment" />
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- End Blog Content -->
+
+
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

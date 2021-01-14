@@ -26,3 +26,14 @@ class ListOfBlogs(generic.ListView):
         context = super(ListOfBlogs, self).get_context_data(**kwargs)
         context['title'] = 'Blog'
         return context
+
+
+class DetailBlog(generic.detail.DetailView):
+    model = models.Blog
+    template_name = "blog_detail.html"
+    context_object_name = 'blog'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Blog Detail"
+        return context

@@ -28,7 +28,8 @@
                             <div class="post-header">
                                 <h5><span>In</span> <strong><a href="#" class="color">{{ blog.author }}</a></strong></h5>
                                 
-                                <a href="#">
+                                <!-- href="{% url 'blog:blog_detail' pk=blog.pk %}" -->
+                                <a href="{% url 'blog:blog_detail' pk=blog.pk %}">
                                     <h3><strong>{{ blog.title }}</strong></h3>
                                 </a>
                             </div>
