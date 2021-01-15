@@ -13,12 +13,12 @@
                     <span class="icon-bar bottom-bar"></span>
                 </button>
 
-                <a class="navbar-brand to-top" href="/">
+                <!-- <a class="navbar-brand to-top" href="/">
                     {# todo create my logo png #}
                     <img src="{% static 'img/assets/logo-light.png' %}" class="logo-light" alt="#">
                     <img src="{% static 'img/assets/logo-dark.png' %}" class="logo-dark" alt="#">
 
-                </a>
+                </a> -->
             </div>
         </div>
 
@@ -27,23 +27,17 @@
                 <ul class="nav navbar-nav menu-right">
 
                     <!-- Each section must have corresponding ID ( #hero -> id="hero" ) -->
-                    <!-- 
+                    
                         
                         <li class="dropdown">
                         <a class="dropdown-toggle">Blog<i class="ion-ios-arrow-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'message_api:blog_home' %}">Standard Layout</a></li>
-                            <li><a href="blog-list.html">List Layout</a></li>
-                            <li><a href="blog-grid.html">Grid Layout</a></li>
-                            <li><a href="blog-post-standard.html">Standard Post</a></li>
-                            <li><a href="blog-post-gallery.html">Gallery Post</a></li>
-                            <li><a href="blog-post-video.html">Video Post</a></li>
-                            <li><a href="blog-post-fullwidth.html">Fullwidth Post</a></li>
+                            <li><a href="{% url 'blog:blog_list' %}">List of Posts</a></li>
+                            <li><a href="{% url 'blog:blog_create' %}">Create new</a></li>
                         </ul>
                     </li> 
 
-                    -->
-                    <li><a href="{% url 'blog:blog_list' %}" >Blog</a></li>
+                    
                     <li class="dropdown">
                         <a class="dropdown-toggle">Navigate<i class="ion-ios-arrow-down"></i></a>
                         <ul class="dropdown-menu">

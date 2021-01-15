@@ -21,13 +21,13 @@
                     <li class="row vertical-align">
                         <div class="col-md-6 mt20 mb20">
                             <!-- <img src="{% static 'img/blog/2.jpg' %}" alt="#"> -->
-                            <a href="#"><img src="{% static 'img/blog/1.jpg' %}"
-                                    class="img-responsive width100" alt="#"></a>
+                            <a href="#"><img src="{{ blog.image.url }}" class="img-responsive width100" alt="#"></a>
                         </div>
                         <div class="col-md-6">
                             <div class="post-header">
-                                <h5><span>In</span> <strong><a href="#" class="color">{{ blog.author }}</a></strong></h5>
-                                
+                                <h5><span>In</span> <strong><a href="#" class="color">{{ blog.author }}</a></strong>
+                                </h5>
+
                                 <!-- href="{% url 'blog:blog_detail' pk=blog.pk %}" -->
                                 <a href="{% url 'blog:blog_detail' pk=blog.pk %}">
                                     <h3><strong>{{ blog.title }}</strong></h3>
@@ -72,6 +72,7 @@
                             <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache fanny pack nostrud. Photo booth anim 8-bit hella, PBR 3 wolf moon beard Helvetica. Salvia esse nihil, flexitarian Truffaut synth art party deep v chillwave.</p>
                         </div>
                     </li> 
+
                 -->
 
                 </ul>
@@ -80,10 +81,15 @@
                 <h1> cant see blog lost data </h1>
                 {% endif %}
 
+
+
+
+
+
                 <!-- Pagination -->
                 <div class="col-md-12 text-center">
                     <ul class="blog-pagination mb60">
-                        <li>
+                        <!-- <li>
                             <a href="#">
                                 <i class="ion-android-arrow-back"></i>
                             </a>
@@ -107,12 +113,51 @@
                             <a href="#">
                                 <i class="ion-android-arrow-forward"></i>
                             </a>
+                        </li> -->
+
+                        {% if page_obj.has_previous %}
+                        <li>
+                        
+
+
+                            <a href="?page=1" class="btn btn-outline-info mb-4">first </a>
+                            <a href="page={{ page_obj.previous_page_number }}" class="btn btn-outline-info mb-4">prev 
+                               </a>
+
                         </li>
+                        {% endif %}
+
+                        <li>
+                            <span class="active">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+                        </li>
+
+
+                        {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info mb-4">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4">last
+                                &raquo;</a>
+                        </li>
+                        {% endif %}
+
+
+
                     </ul>
                 </div>
                 <!-- End Pagination -->
 
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+
 
             <!-- Sidebar -->
             <div class="col-md-3 sidebar">

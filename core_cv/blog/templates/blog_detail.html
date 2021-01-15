@@ -13,7 +13,7 @@
                 <div class="blog-post">
 
                     <div class="carousel mt20 mb20">
-                        <div><img src="img/blog/1.jpg" class="img-responsive width100" alt="#"></div>
+                        <div><img src="{{ blog.image.url }}" class="img-responsive width100" alt="#"></div>
                         <div><img src="img/blog/2.jpg" class="img-responsive width100" alt="#"></div>
                         <div><img src="img/blog/3.jpg" class="img-responsive width100" alt="#"></div>
                     </div>
@@ -113,29 +113,24 @@
                     <h5><strong>Leave Comment</strong></h5>
                     <form>
                         <div class="col-sm-6">
-                            <input placeholder="Your Name *" />
+                            <input placeholder="Your Name *"/>
                         </div>
                         <div class="col-sm-6">
-                            <input placeholder="Your Email *" />
+                            <input placeholder="Your Email *"/>
                         </div>
                         <div class="col-sm-12">
                             <textarea placeholder="Your Comment *"></textarea>
                         </div>
                         <div class="col-md-12 text-center">
                             <input type="submit" class="submit btn btn-lg btn-primary" id="submit"
-                                value="Submit Comment" />
+                                   value="Submit Comment"/>
                         </div>
                     </form>
                 </div>
 
 
-
-
-
-
             </div>
             <!-- End Blog Content -->
-
 
 
         </div>
