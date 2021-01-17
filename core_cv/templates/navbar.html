@@ -1,12 +1,12 @@
 {% load static %}
 
-<nav class="navbar nav-down" data-fullwidth="true" data-menu-style="transparent" data-animation="shrink">
+<nav class="navbar nav-down" data-fullwidth="true" data-menu-style="dark" data-animation="shrink">
     <!-- Styles: light, dark, transparent, transparent-to-dark | Animation: hiding, shrink -->
     <div class="container">
         <div class="navbar-header">
             <div class="container">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="false" aria-controls="navbar">
+                    aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar top-bar"></span>
                     <span class="icon-bar middle-bar"></span>
@@ -14,11 +14,9 @@
                 </button>
 
                 <a class="navbar-brand to-top" href="/">
-                    {#                    todo create my logo png #}
-                    <img src="{% static 'img/assets/logo-light.png' %}"
-                         class="logo-light" alt="#">
+                    {# todo create my logo png #}
+                    <img src="{% static 'img/assets/logo-light.png' %}" class="logo-light" alt="#">
                     <img src="{% static 'img/assets/logo-dark.png' %}" class="logo-dark" alt="#">
-
                 </a>
             </div>
         </div>
@@ -28,19 +26,15 @@
                 <ul class="nav navbar-nav menu-right">
 
                     <!-- Each section must have corresponding ID ( #hero -> id="hero" ) -->
-                    <li class="dropdown">
+                        <li class="dropdown">
                         <a class="dropdown-toggle">Blog<i class="ion-ios-arrow-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'message_api:blog_home' %}">Standard Layout</a></li>
-                            <li><a href="blog-list.html">List Layout</a></li>
-                            <li><a href="blog-grid.html">Grid Layout</a></li>
-                            <li><a href="blog-post-standard.html">Standard Post</a></li>
-                            <li><a href="blog-post-gallery.html">Gallery Post</a></li>
-                            <li><a href="blog-post-video.html">Video Post</a></li>
-                            <li><a href="blog-post-fullwidth.html">Fullwidth Post</a></li>
+                            <li><a href="{% url 'blog:blog_list' %}">List of Posts</a></li>
+                            <li><a href="{% url 'blog:blog_create' %}">Create new</a></li>
                         </ul>
-                    </li>
+                    </li> 
 
+                    
                     <li class="dropdown">
                         <a class="dropdown-toggle">Navigate<i class="ion-ios-arrow-down"></i></a>
                         <ul class="dropdown-menu">
@@ -53,21 +47,21 @@
                     </li>
 
                     {% if user.is_superuser %}
-                        <li><a href="{% url 'admin:index' %}" style="color: red">Admin</a></li>
+                    <li><a href="{% url 'admin:index' %}" style="color: red">Admin</a></li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        <li><a href="#">My Profile</a></li>
-                        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                    <li><a href="#">My Profile</a></li>
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
                     {% else %}
-                        <li><a href="{% url 'accounts:register' %}">Register</a></li>
-                        <li><a href="{% url 'accounts:login' %}">Log in</a></li>
+                    <li><a href="{% url 'accounts:register' %}">Register</a></li>
+                    <li><a href="{% url 'accounts:login' %}">Log in</a></li>
                     {% endif %}
 
                     <li class="nav-separator"></li>
                     <li class="nav-icon"><a href="http://facebook.com/" target="_blank"><i
-                            class="ion-social-facebook"></i></a></li>
+                                class="ion-social-facebook"></i></a></li>
                     <li class="nav-icon"><a href="http://twitter.com/" target="_blank"><i
-                            class="ion-social-twitter"></i></a></li>
+                                class="ion-social-twitter"></i></a></li>
                     <li class="nav-icon"><a href="#" target="_blank"><i class="ion-help-buoy"></i></a></li>
                 </ul>
 

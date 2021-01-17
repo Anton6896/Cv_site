@@ -9,51 +9,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% if title %}
-        <title>{{ title }}</title>
+    <title>{{ title }}</title>
     {% else %}
-        <title>Home</title>
+    <title>Home</title>
     {% endif %}
 
     {% include 'header.html' %}
+
 </head>
 
 <body data-fade-in="true">
 
-<div class="pre-loader">
-    <div></div>
-</div>
-
-<!-- navbar  -->
-{# navbar #}
-{% include 'navbar.html' %}
-<!-- End navbar -->
-
-{# main block  ================================================#}
-
-{# messages section #}
-{% if messages %}
-    {% for element in messages %}
-        <br>
-        <div class="alert alert-{{ element.tags }} alert-dismissible fade show" role="alert">
-            {{ element }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="pre-loader">
+        <div>
         </div>
+    </div>
+
+    <!-- navbar  -->
+    {# navbar #}
+    {% include 'navbar.html' %}
+    <!-- End navbar -->
+
+    {# messages section #}
+    {% if messages %}
+    {% for element in messages %}
+
+    <div class="alert alert-{{ element.tags }} alert-dismissible fade show" role="alert">
+        {{ element }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     {% endfor %}
-{% endif %}
+    {% endif %}
 
 
 
-{% block content %}
-<!--  data content is here  -->
-{% endblock content %}
+    {% block content %}
+    <!--  data content is here  -->
+    {% endblock content %}
 
-{# end main block  ================================================#}
-
-
-{% include 'footer.html' %}
-{% include 'script.html' %}
+    {% include 'footer.html' %}
+    {% include 'script.html' %}
 
 </body>
 

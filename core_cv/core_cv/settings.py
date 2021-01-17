@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'voting_app.apps.VotingAppConfig',
     'message.apps.MessageConfig',
+    'blog.apps.BlogConfig',
     'comment.apps.CommentConfig',
 
     # foreign
@@ -48,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'drf_multiple_model'
+    'drf_multiple_model',
+    'pagedown'
 
 ]
 
@@ -71,6 +73,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'accounts/templates'),
             os.path.join(BASE_DIR, 'message/templates'),
+            os.path.join(BASE_DIR, 'blog/templates'),
 
         ],
         'APP_DIRS': True,
