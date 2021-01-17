@@ -27,6 +27,7 @@
 
                     <p>{{ blog.content }}</p>
 
+                    <!-- buttom post section  -->
                     <div class="post-tags">
                         <a href="#" rel="tag">Forest</a>
                         <a href="#" rel="tag">Northwest</a>
@@ -44,88 +45,56 @@
                 </div>
 
 
-                <!-- Comments -->
-                <h5 class="comment-number"><strong>3 Comments:</strong></h5>
+                <!-- Comments  -->
+                {% if blog.comment %}
+                <h5 class="comment-number"><strong> {{ blog.comment.all.count }} Comments :</strong></h5>
                 <ul class="vos-comments">
 
-                    <li class="post-comment">
-                        <div class="comment-content">
-                            <a href="#" class="avatar"><img src="img/blog/avatar-1.jpg" alt="#"></a>
-                            <div class="post-body">
-                                <div class="comment-header">
-                                    <span class="author"><a href="#">Carolyn Bell</a></span>
-                                    <span class="time-ago"><a href="#">22 days ago</a></span>
-                                </div>
-                                <div class="post-message">
-                                    <p>Ius te placerat probatus consequuntur, eirmod nonumes conclusionemque ne mel. Mei
-                                        ex posse corpora posidonium, mollis vocent mediocritatem ea mea.</p>
-                                </div>
-                                <div class="comment-footer">
-                                    <span class="reply"><a href="#"><i class="ion-reply"></i> Reply</a></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="reply-comment">
-                            <li class="post-comment">
-                                <div class="comment-content">
-                                    <a href="#" class="avatar"><img src="img/blog/avatar-2.jpg" alt="#"></a>
-                                    <div class="post-body">
-                                        <div class="comment-header">
-                                            <span class="author"><a href="#">Kati Adams</a></span>
-                                            <span class="time-ago"><a href="#">a month ago</a></span>
-                                        </div>
-                                        <div class="post-message">
-                                            <p>Labore nusquam postulant ad pro, sit ea movet gubergren.</p>
-                                        </div>
-                                        <div class="comment-footer">
-                                            <span class="reply"><a href="#"><i class="ion-reply"></i> Reply</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-
-                    </li>
+                    {% for comment in blog.comment.all %}
 
                     <li class="post-comment">
                         <div class="comment-content">
-                            <a href="#" class="avatar"><img src="img/blog/avatar-3.jpg" alt="#"></a>
+                            <!-- todo  image user  -->
+                            <a href="#" class="avatar"><img src="{{ comment.author.image.url }}" alt="#"></a>
                             <div class="post-body">
                                 <div class="comment-header">
-                                    <span class="author"><a href="#">Steve Pitts</a></span>
-                                    <span class="time-ago"><a href="#">2 months ago</a></span>
+                                    <span class="author"><a href="#">{{ comment.author.username }}</a></span>
+                                    <span class="time-ago"><a href="#">{{ comment.created_at }} </a></span>
                                 </div>
                                 <div class="post-message">
-                                    <p>These photos are great, I love the crisp finish they have on them, they look
-                                        incredible!<br>The new Liverty store sounds great :)</p>
+                                    <p>{{ comment.content }}</p>
                                 </div>
-                                <div class="comment-footer">
+                                <!-- <div class="comment-footer">
                                     <span class="reply"><a href="#"><i class="ion-reply"></i> Reply</a></span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </li>
+
+                    {% endfor %}
 
                 </ul>
+                {% else %}
+                <h1> no comments !! </h1>
+                {% endif %}
 
+
+                <!-- form for comment  -->
                 <div class="form-leave-comment">
                     <h5><strong>Leave Comment</strong></h5>
-                    <form>
-                        <div class="col-sm-6">
-                            <input placeholder="Your Name *"/>
-                        </div>
-                        <div class="col-sm-6">
-                            <input placeholder="Your Email *"/>
-                        </div>
+
+                    <form method="POST", action=".">
                         <div class="col-sm-12">
-                            <textarea placeholder="Your Comment *"></textarea>
+                            {% csrf_token %}
+                            {{ form }}
                         </div>
                         <div class="col-md-12 text-center">
                             <input type="submit" class="submit btn btn-lg btn-primary" id="submit"
-                                   value="Submit Comment"/>
+                                value="Submit Comment" />
                         </div>
+
                     </form>
+
                 </div>
 
 

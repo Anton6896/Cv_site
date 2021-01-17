@@ -51,10 +51,20 @@ class Blog(models.Model):
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
 
+    def __str__(self) -> str:
+        return "Post : " + self.title
 
-# class BlogComment(models.Model):
-#     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-#     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
-#     content = models.TextField()
-#     created_at = models.DateTimeField(default=timezone.now)
+class BlogComment(models.Model):
+    blog = models.ForeignKey(
+        Blog, on_delete=models.CASCADE, related_name='comment')
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    content = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return "comment by [" + str(self.author.username) + "]"
+
+    class Meta:
+        ordering = ["-created_at", ]

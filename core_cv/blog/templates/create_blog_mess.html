@@ -18,7 +18,7 @@
 
             <div class="col-md-8 col-md-offset-2 contact box-style">
                 <div id="message-info"></div>
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" >
 
                     {% csrf_token %}
                     {{ form | crispy }}

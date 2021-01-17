@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'drf_multiple_model'
+    'drf_multiple_model',
+    'pagedown'
 
 ]
 
