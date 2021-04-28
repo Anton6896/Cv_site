@@ -1,3 +1,5 @@
+deployed at :: http://antonr.pythonanywhere.com/
+
 # CV_site
 create CV site on django for training purpose not commercial use !!!!
 
